@@ -62,6 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return container
     }()
 
+    func applicationWillTerminate(_ application: UIApplication) {
+        saveContext()
+    }
+
     // MARK: - Core Data Saving support
 
     func saveContext () {
