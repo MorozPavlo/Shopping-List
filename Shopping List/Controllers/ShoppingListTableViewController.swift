@@ -11,8 +11,11 @@ import CoreData
 
 class ShoppingListTableViewController: UITableViewController {
 
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    
     private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var shoppingList: [List]  = []
+    var styleDark: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +23,24 @@ class ShoppingListTableViewController: UITableViewController {
         fetchData()
         self.title = "Список покупок"
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-
         let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditing)) // create a bat button
-        editButton.image = UIImage(systemName: "text.justify")
-        editButton.tintColor = .black
-        navigationItem.leftBarButtonItem = editButton // assign button
+
+        if self.traitCollection.userInterfaceStyle  == .dark {
+            self.styleDark = true
+        } else {
+            false
+        }
+
+        if styleDark {
+            editButton.image = UIImage(systemName: "text.justify")
+            editButton.tintColor = .white
+            navigationItem.leftBarButtonItem = editButton // assign button
+            addButton.tintColor = .white
+        } else {
+            editButton.image = UIImage(systemName: "text.justify")
+            editButton.tintColor = .black
+            navigationItem.leftBarButtonItem = editButton // assign button
+        }
     }
 
     // MARK: - Table view data source
@@ -37,8 +53,6 @@ class ShoppingListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shoppingList", for: indexPath) as! ShoppingListTableViewCell
         let list = shoppingList[indexPath.row]
-        var index = indexPath.row
-        update(list, index: index)
         cell.set(list: list)
         return cell
 
@@ -46,23 +60,8 @@ class ShoppingListTableViewController: UITableViewController {
 
     @IBAction func addNewProduct(_ sender: Any) {
 
-        showAlert(title: "Добавление продукта", message: "Что хотите добавить в список?")
+        showAlert(title: "Добавление позиции", message: "Что хотите добавить в список?")
     }
-
-    // MARK: - Delete list
-
-    //    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-    //        return .delete
-    //    }
-    //
-    //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    //        if editingStyle == .delete {
-    //
-    //            delete(shoppingList[indexPath.row])
-    //            shoppingList.remove(at: indexPath.row)
-    //            tableView.deleteRows(at: [indexPath], with: .fade)
-    //        }
-    //    }
 
     // MARK: - Buy Actions
 
@@ -89,46 +88,12 @@ class ShoppingListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-
-        let someArray = shoppingList
         let oldList = shoppingList.remove(at: sourceIndexPath.row)
         shoppingList.insert(oldList, at: destinationIndexPath.row)
+
         tableView.reloadData()
+        
 
-//        for i in 0...shoppingList.count - 1 {
-//            print(shoppingList[i].name)
-//        }
-        let fetchRequest: NSFetchRequest<List> = List.fetchRequest()
-                do {
-                    let result = try viewContext.fetch(fetchRequest)
-                    var indexx = 0
-                        for _ in 0...shoppingList.count - 1 {
-
-//print("СМЕНИТЬ \(result[indexx].name) по индексу \(indexx) НА ШОП ЛИСТ\(shoppingList[indexx].name) по индексу \(indexx)")
-
-                            if indexx == shoppingList.count - 1 {
-                           // result[sourceIndexPath.row].setValue(shoppingList[destinationIndexPath.row].name, forKey: "name")
-                           // result[destinationIndexPath.row].setValue(shoppingList[sourceIndexPath.row].name, forKey: "name")
-
-                           // print("СМЕНИТЬ \(result[sourceIndexPath.row].name) по индексу \(sourceIndexPath.row) НА ШОП ЛИСТ\(shoppingList[destinationIndexPath.row].name) по индексу \(destinationIndexPath.row)")
-
-                                result[sourceIndexPath.row].setValue(someArray[destinationIndexPath.row].name, forKey: "name")
-                                result[indexx].setValue(someArray[sourceIndexPath.row].name, forKey: "name")
-
-
-
-                    }
-                            indexx += 1
-                        }
-                    do {
-                        try viewContext.save()
-                    } catch  let error as NSError {
-                        print("error: \(error.localizedDescription)")
-                    }
-                }catch let error as NSError {
-                    print("error: \(error.localizedDescription)")
-                }
-        tableView.reloadData()
     }
 
     @available(iOS 11.0, *)
@@ -158,11 +123,19 @@ class ShoppingListTableViewController: UITableViewController {
         else
         {
             self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "text.justify")
-            self.navigationItem.leftBarButtonItem?.tintColor = .black
+            self.navigationItem.leftBarButtonItem?.tintColor = styleDark ? .white : .black
+
+            updateOrders()
         }
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        showEditAlert(title: "Редактирование позиции", message: "На что изменить?", shoppingList: shoppingList[indexPath.row])
+    }
+
 }
+
 
 // MARK: - Alert controller
 extension ShoppingListTableViewController {
@@ -183,6 +156,26 @@ extension ShoppingListTableViewController {
         alert.addAction(cancelAction)
         present(alert, animated: true)
     }
+
+    private func showEditAlert(title: String, message: String, shoppingList: List) {
+         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+         let saveAction = UIAlertAction(title: "Редактировать", style: .default) { _ in
+             guard let task = alert.textFields?.first?.text, !task.isEmpty else {
+                 print("The text field is empty")
+                 return
+             }
+
+            self.update(task, order: Int(shoppingList.order))
+         }
+
+         let cancelAction = UIAlertAction(title: "Отменить", style: .destructive)
+         alert.addTextField()
+        alert.textFields?.first?.text = shoppingList.name
+         alert.addAction(saveAction)
+         alert.addAction(cancelAction)
+         present(alert, animated: true)
+     }
+
 }
 
 
@@ -198,6 +191,8 @@ extension ShoppingListTableViewController {
 
         let list = NSManagedObject(entity: entityDescription, insertInto: viewContext) as! List
         list.name = listName
+        let maxList = shoppingList.max { a, b in a.order < b.order }
+        list.order = (maxList?.order ?? 0) + 1
 
         do {
             try viewContext.save()
@@ -220,40 +215,22 @@ extension ShoppingListTableViewController {
         }
     }
 
-    private func update(_ list: List, index: Int) {
+    private func update(_ listName: String, order: Int) {
 
-        let fetchRequest: NSFetchRequest<List> = List.fetchRequest()
-        do {
-            let result = try viewContext.fetch(fetchRequest)
-//            //старый продукт
-//            let oldList = result[sourceIndexPath.row] as NSManagedObject as! List
-//            //новый продукт
-//            let newList = result[destinationIndexPath.row] as NSManagedObject as! List
-//
-//            newList.setValue(shoppingList[destinationIndexPath.row].name, forKey: "name")
-//            oldList.setValue(shoppingList[sourceIndexPath.row].name, forKey: "name")
+        viewContext.setValue(listName, forKey: "name")
+        for (_,list) in shoppingList.enumerated() {
 
-            //result[indexPath.row].setValue(list.name, forKey: "name")
-            var indexx = 0
-            if index == shoppingList.count - 1 && tableView.isEditing == true {
-               // result[index].setValue(shoppingList[index].name, forKey: "name")
-                for i in 0...shoppingList.count - 1 {
-                    //print("СМЕНИТЬ \(result[indexx].name) по индексу \(indexx) НА ШОП ЛИСТ\(shoppingList[indexx].name) по индексу \(indexx)")
-                    //result[indexx].setValue(shoppingList[indexx].name, forKey: "name")
-                   // print("СМЕНИТЬ2 \(result[indexx].name) по индексу \(indexx) НА ШОП ЛИСТ2\(shoppingList[indexx].name) по индексу \(indexx)")
-                    indexx += 1
-                }
+            if list.order == Int32(order) {
+                //print(list.name)
+                list.name = listName
+                self.tableView.reloadData()
             }
-
+        }
             do {
-
                 try viewContext.save()
-            } catch  let error as NSError {
+            } catch let error as NSError {
                 print("error: \(error.localizedDescription)")
             }
-        }catch let error as NSError {
-            print("error: \(error.localizedDescription)")
-        }
     }
 
     private func updatePurchases(_ listName: List) {
@@ -271,13 +248,28 @@ extension ShoppingListTableViewController {
         }
     }
 
+    private func updateOrders() {
+        for (index,list) in shoppingList.enumerated() {
+            print(index)
+            print(list)
+            list.order = Int32(index)
+        }
+        do {
+            try viewContext.save()
+        } catch let error as NSError {
+            print("error: \(error.localizedDescription)")
+        }
+    }
 
     private func fetchData() {
 
         let fetchRequest: NSFetchRequest<List> = List.fetchRequest()
-
+        
+        let sort = NSSortDescriptor(key: "order", ascending: true)
+        fetchRequest.sortDescriptors = [sort]
         do {
             shoppingList = try viewContext.fetch(fetchRequest)
+
         } catch let error {
             print(error)
         }

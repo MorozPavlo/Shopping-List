@@ -3,8 +3,9 @@
     <entity name="List" representedClassName="List" syncable="YES" codeGenerationType="class">
         <attribute name="isBuy" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="List" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="List" positionX="-63" positionY="-18" width="128" height="88"/>
     </elements>
 </model>
