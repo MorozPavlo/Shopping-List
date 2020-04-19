@@ -76,7 +76,7 @@
                         <barButtonItem key="leftBarButtonItem" image="text.justify" catalog="system" id="5n4-48-Fx1">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="hQ2-zJ-G1M">
+                        <barButtonItem key="rightBarButtonItem" image="text.badge.plus" catalog="system" style="done" id="hQ2-zJ-G1M">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addNewProduct:" destination="cJr-Sa-JSb" id="Azz-9n-4t4"/>
@@ -111,6 +111,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="text.badge.plus" catalog="system" width="128" height="109"/>
         <image name="text.justify" catalog="system" width="128" height="100"/>
     </resources>
 </document>

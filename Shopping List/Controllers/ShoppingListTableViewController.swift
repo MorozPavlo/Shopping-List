@@ -20,27 +20,9 @@ class ShoppingListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupUI()
         fetchData()
-        self.title = "Список покупок"
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
-        let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditing)) // create a bat button
 
-        if self.traitCollection.userInterfaceStyle  == .dark {
-            self.styleDark = true
-        } else {
-            false
-        }
-
-        if styleDark {
-            editButton.image = UIImage(systemName: "text.justify")
-            editButton.tintColor = .white
-            navigationItem.leftBarButtonItem = editButton // assign button
-            addButton.tintColor = .white
-        } else {
-            editButton.image = UIImage(systemName: "text.justify")
-            editButton.tintColor = .black
-            navigationItem.leftBarButtonItem = editButton // assign button
-        }
     }
 
     // MARK: - Table view data source
@@ -58,6 +40,8 @@ class ShoppingListTableViewController: UITableViewController {
 
     }
 
+    // MARK: - Add new List Func
+
     @IBAction func addNewProduct(_ sender: Any) {
 
         showAlert(title: "Добавление позиции", message: "Что хотите добавить в список?")
@@ -70,14 +54,20 @@ class ShoppingListTableViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [done])
     }
 
+    // MARK: - Buy Actions configuration
     func doneAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Done") { (action, view, completion) in
             self.updatePurchases(self.shoppingList[indexPath.row])
             self.tableView.reloadData()
             completion(true)
         }
-        action.backgroundColor = .systemGreen
-        action.image = UIImage(systemName: "checkmark.circle")
+        if shoppingList[indexPath.row].isBuy == false {
+            action.backgroundColor = .systemGreen
+            action.image = UIImage(systemName: "cart.badge.plus")
+        } else {
+            action.backgroundColor = .red
+            action.image = UIImage(systemName: "cart.badge.minus")
+        }
         return action
     }
 
@@ -96,6 +86,7 @@ class ShoppingListTableViewController: UITableViewController {
 
     }
 
+    // MARK: - Swipe Action (Delete)
     @available(iOS 11.0, *)
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, complete in
@@ -113,11 +104,11 @@ class ShoppingListTableViewController: UITableViewController {
     }
 
     @objc private func toggleEditing() {
-        self.tableView.setEditing(!self.tableView.isEditing, animated: true) // Set opposite value of current editing status
-        //navigationItem.rightBarButtonItem?.title = self.tableView.isEditing ? "Done" : "Edit" // Set title depending on the editing status
+        self.tableView.setEditing(!self.tableView.isEditing, animated: true)
+
         if(self.tableView.isEditing == true)
         {
-            self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "checkmark")
+            self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "checkmark.square")
             self.navigationItem.leftBarButtonItem?.tintColor = .systemGreen
         }
         else
@@ -136,6 +127,29 @@ class ShoppingListTableViewController: UITableViewController {
 
 }
 
+// MARK: - SetupUI
+extension ShoppingListTableViewController {
+
+    func setupUI() {
+        self.title = "Список покупок"
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
+        let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditing))
+
+        if self.traitCollection.userInterfaceStyle  == .dark {
+            self.styleDark = true
+        }
+        if styleDark {
+            editButton.image = UIImage(systemName: "arrow.up.arrow.down.square")
+            editButton.tintColor = .white
+            navigationItem.leftBarButtonItem = editButton // assign button
+            addButton.tintColor = .white
+        } else {
+            editButton.image = UIImage(systemName: "arrow.up.arrow.down.square")
+            editButton.tintColor = .black
+            navigationItem.leftBarButtonItem = editButton // assign button
+        }
+    }
+}
 
 // MARK: - Alert controller
 extension ShoppingListTableViewController {
@@ -158,26 +172,25 @@ extension ShoppingListTableViewController {
     }
 
     private func showEditAlert(title: String, message: String, shoppingList: List) {
-         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-         let saveAction = UIAlertAction(title: "Редактировать", style: .default) { _ in
-             guard let task = alert.textFields?.first?.text, !task.isEmpty else {
-                 print("The text field is empty")
-                 return
-             }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Редактировать", style: .default) { _ in
+            guard let task = alert.textFields?.first?.text, !task.isEmpty else {
+                print("The text field is empty")
+                return
+            }
 
-            self.update(task, order: Int(shoppingList.order))
-         }
+            self.updateList(task, order: Int(shoppingList.order))
+        }
 
-         let cancelAction = UIAlertAction(title: "Отменить", style: .destructive)
-         alert.addTextField()
+        let cancelAction = UIAlertAction(title: "Отменить", style: .destructive)
+        alert.addTextField()
         alert.textFields?.first?.text = shoppingList.name
-         alert.addAction(saveAction)
-         alert.addAction(cancelAction)
-         present(alert, animated: true)
-     }
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
 
 }
-
 
 // MARK: - Work with storage
 extension ShoppingListTableViewController {
@@ -215,7 +228,7 @@ extension ShoppingListTableViewController {
         }
     }
 
-    private func update(_ listName: String, order: Int) {
+    private func updateList(_ listName: String, order: Int) {
 
         viewContext.setValue(listName, forKey: "name")
         for (_,list) in shoppingList.enumerated() {
@@ -226,11 +239,11 @@ extension ShoppingListTableViewController {
                 self.tableView.reloadData()
             }
         }
-            do {
-                try viewContext.save()
-            } catch let error as NSError {
-                print("error: \(error.localizedDescription)")
-            }
+        do {
+            try viewContext.save()
+        } catch let error as NSError {
+            print("error: \(error.localizedDescription)")
+        }
     }
 
     private func updatePurchases(_ listName: List) {
