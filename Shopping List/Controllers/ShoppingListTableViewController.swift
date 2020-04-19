@@ -89,8 +89,45 @@ class ShoppingListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+
+        let someArray = shoppingList
         let oldList = shoppingList.remove(at: sourceIndexPath.row)
         shoppingList.insert(oldList, at: destinationIndexPath.row)
+        tableView.reloadData()
+
+//        for i in 0...shoppingList.count - 1 {
+//            print(shoppingList[i].name)
+//        }
+        let fetchRequest: NSFetchRequest<List> = List.fetchRequest()
+                do {
+                    let result = try viewContext.fetch(fetchRequest)
+                    var indexx = 0
+                        for _ in 0...shoppingList.count - 1 {
+
+//print("СМЕНИТЬ \(result[indexx].name) по индексу \(indexx) НА ШОП ЛИСТ\(shoppingList[indexx].name) по индексу \(indexx)")
+
+                            if indexx == shoppingList.count - 1 {
+                           // result[sourceIndexPath.row].setValue(shoppingList[destinationIndexPath.row].name, forKey: "name")
+                           // result[destinationIndexPath.row].setValue(shoppingList[sourceIndexPath.row].name, forKey: "name")
+
+                           // print("СМЕНИТЬ \(result[sourceIndexPath.row].name) по индексу \(sourceIndexPath.row) НА ШОП ЛИСТ\(shoppingList[destinationIndexPath.row].name) по индексу \(destinationIndexPath.row)")
+
+                                result[sourceIndexPath.row].setValue(someArray[destinationIndexPath.row].name, forKey: "name")
+                                result[indexx].setValue(someArray[sourceIndexPath.row].name, forKey: "name")
+
+
+
+                    }
+                            indexx += 1
+                        }
+                    do {
+                        try viewContext.save()
+                    } catch  let error as NSError {
+                        print("error: \(error.localizedDescription)")
+                    }
+                }catch let error as NSError {
+                    print("error: \(error.localizedDescription)")
+                }
         tableView.reloadData()
     }
 
@@ -201,17 +238,16 @@ extension ShoppingListTableViewController {
             if index == shoppingList.count - 1 && tableView.isEditing == true {
                // result[index].setValue(shoppingList[index].name, forKey: "name")
                 for i in 0...shoppingList.count - 1 {
-                    result[indexx].setValue(shoppingList[indexx].name, forKey: "name")
-                    print(shoppingList[indexx].name)
-                    print(result[indexx].name)
+                    //print("СМЕНИТЬ \(result[indexx].name) по индексу \(indexx) НА ШОП ЛИСТ\(shoppingList[indexx].name) по индексу \(indexx)")
+                    //result[indexx].setValue(shoppingList[indexx].name, forKey: "name")
+                   // print("СМЕНИТЬ2 \(result[indexx].name) по индексу \(indexx) НА ШОП ЛИСТ2\(shoppingList[indexx].name) по индексу \(indexx)")
                     indexx += 1
                 }
             }
 
-
             do {
-                try viewContext.save()
 
+                try viewContext.save()
             } catch  let error as NSError {
                 print("error: \(error.localizedDescription)")
             }
