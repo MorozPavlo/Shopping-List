@@ -13,16 +13,15 @@ class ShoppingListTableViewController: UITableViewController {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
     
+    
     private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var shoppingList: [List]  = []
     var styleDark: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupUI()
         fetchData()
-
     }
 
     // MARK: - Table view data source
@@ -108,12 +107,12 @@ class ShoppingListTableViewController: UITableViewController {
 
         if(self.tableView.isEditing == true)
         {
-            self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "checkmark.square")
+            self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "checkmark")
             self.navigationItem.leftBarButtonItem?.tintColor = .systemGreen
         }
         else
         {
-            self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "text.justify")
+            self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "arrow.up.arrow.down")
             self.navigationItem.leftBarButtonItem?.tintColor = styleDark ? .white : .black
 
             updateOrders()
@@ -132,21 +131,30 @@ extension ShoppingListTableViewController {
 
     func setupUI() {
         self.title = "Список покупок"
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
+
+
+        navigationItem.leftBarButtonItem = editButtonItem
         let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditing))
 
         if self.traitCollection.userInterfaceStyle  == .dark {
-            self.styleDark = true
+            styleDark = true
         }
         if styleDark {
-            editButton.image = UIImage(systemName: "arrow.up.arrow.down.square")
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            editButton.image = UIImage(systemName: "arrow.up.arrow.down")
             editButton.tintColor = .white
             navigationItem.leftBarButtonItem = editButton // assign button
             addButton.tintColor = .white
+            tableView.separatorColor = .systemOrange
+
         } else {
-            editButton.image = UIImage(systemName: "arrow.up.arrow.down.square")
+            navigationController?.navigationBar.barStyle = .default
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemOrange]
+
+            editButton.image = UIImage(systemName: "arrow.up.arrow.down")
             editButton.tintColor = .black
             navigationItem.leftBarButtonItem = editButton // assign button
+            tableView.separatorColor = .systemOrange
         }
     }
 }
@@ -204,14 +212,16 @@ extension ShoppingListTableViewController {
 
         let list = NSManagedObject(entity: entityDescription, insertInto: viewContext) as! List
         list.name = listName
-        let maxList = shoppingList.max { a, b in a.order < b.order }
-        list.order = (maxList?.order ?? 0) + 1
+        let minList = shoppingList.min { a, b in a.order < b.order }
+        list.order = (minList?.order ?? 0) - 1
 
         do {
             try viewContext.save()
             shoppingList.append(list)
             let cellIndex = IndexPath(row: self.shoppingList.count - 1, section: 0)
             self.tableView.insertRows(at: [cellIndex], with: .automatic)
+            fetchData()
+            tableView.reloadData()
         } catch let error {
             print(error)
         }
@@ -250,8 +260,20 @@ extension ShoppingListTableViewController {
 
         if listName.isBuy == false {
             listName.isBuy = true
+
+            //arr.swapAt(0, arr.count-1)
+            listName.order = Int32(shoppingList.count + 1)
+            fetchData()
+            tableView.reloadData()
+
+
         } else {
             listName.isBuy = false
+
+            let minList = shoppingList.min { a, b in a.order < b.order }
+            listName.order = (minList?.order ?? 0) - 1
+            fetchData()
+            tableView.reloadData()
         }
 
         do {
@@ -263,8 +285,6 @@ extension ShoppingListTableViewController {
 
     private func updateOrders() {
         for (index,list) in shoppingList.enumerated() {
-            print(index)
-            print(list)
             list.order = Int32(index)
         }
         do {

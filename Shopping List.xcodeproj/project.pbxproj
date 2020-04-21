@@ -15,6 +15,16 @@
 		D73824C8244B223E00FD77F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D73824C6244B223E00FD77F4 /* LaunchScreen.storyboard */; };
 		D73824D5244B248400FD77F4 /* ShoppingListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73824D4244B248400FD77F4 /* ShoppingListTableViewController.swift */; };
 		D73824D8244B253200FD77F4 /* ShoppingListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73824D7244B253200FD77F4 /* ShoppingListTableViewCell.swift */; };
+		D73824E0244CDB4E00FD77F4 /* Emodji.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73824DF244CDB4E00FD77F4 /* Emodji.swift */; };
+		D73824EA244F936C00FD77F4 /* shopping1@3x .png in Resources */ = {isa = PBXBuildFile; fileRef = D73824E4244F936C00FD77F4 /* shopping1@3x .png */; };
+		D73824EB244F936C00FD77F4 /* shopping2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D73824E5244F936C00FD77F4 /* shopping2@2x.png */; };
+		D73824EC244F936C00FD77F4 /* shopping2@3x .png in Resources */ = {isa = PBXBuildFile; fileRef = D73824E6244F936C00FD77F4 /* shopping2@3x .png */; };
+		D73824ED244F936C00FD77F4 /* shopping3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D73824E7244F936C00FD77F4 /* shopping3@2x.png */; };
+		D73824EE244F936C00FD77F4 /* shopping3@3x .png in Resources */ = {isa = PBXBuildFile; fileRef = D73824E8244F936C00FD77F4 /* shopping3@3x .png */; };
+		D73824EF244F936C00FD77F4 /* shopping1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D73824E9244F936C00FD77F4 /* shopping1@2x.png */; };
+		D73824F1244F9F3F00FD77F4 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73824F0244F9F3F00FD77F4 /* SettingsTableViewController.swift */; };
+		D73824F3244FA05100FD77F4 /* IconsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73824F2244FA05100FD77F4 /* IconsCollectionViewCell.swift */; };
+		D73824F7244FA9E900FD77F4 /* IconsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73824F6244FA9E900FD77F4 /* IconsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +38,16 @@
 		D73824C9244B223E00FD77F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D73824D4244B248400FD77F4 /* ShoppingListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTableViewController.swift; sourceTree = "<group>"; };
 		D73824D7244B253200FD77F4 /* ShoppingListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTableViewCell.swift; sourceTree = "<group>"; };
+		D73824DF244CDB4E00FD77F4 /* Emodji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emodji.swift; sourceTree = "<group>"; };
+		D73824E4244F936C00FD77F4 /* shopping1@3x .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping1@3x .png"; sourceTree = "<group>"; };
+		D73824E5244F936C00FD77F4 /* shopping2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping2@2x.png"; sourceTree = "<group>"; };
+		D73824E6244F936C00FD77F4 /* shopping2@3x .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping2@3x .png"; sourceTree = "<group>"; };
+		D73824E7244F936C00FD77F4 /* shopping3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping3@2x.png"; sourceTree = "<group>"; };
+		D73824E8244F936C00FD77F4 /* shopping3@3x .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping3@3x .png"; sourceTree = "<group>"; };
+		D73824E9244F936C00FD77F4 /* shopping1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping1@2x.png"; sourceTree = "<group>"; };
+		D73824F0244F9F3F00FD77F4 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		D73824F2244FA05100FD77F4 /* IconsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsCollectionViewCell.swift; sourceTree = "<group>"; };
+		D73824F6244FA9E900FD77F4 /* IconsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,11 +80,13 @@
 		D73824B7244B223D00FD77F4 /* Shopping List */ = {
 			isa = PBXGroup;
 			children = (
+				D73824E2244F92CA00FD77F4 /* ChangeAppIcon */,
 				D73824D0244B22B200FD77F4 /* Supportings Files */,
 				D73824D1244B22C000FD77F4 /* Controllers */,
 				D73824CF244B228800FD77F4 /* Storyboard */,
 				D73824D2244B22D100FD77F4 /* Media Files */,
 				D73824D3244B234500FD77F4 /* Core Data */,
+				D73824E1244CEFA900FD77F4 /* Models */,
 			);
 			path = "Shopping List";
 			sourceTree = "<group>";
@@ -93,6 +115,7 @@
 			children = (
 				D73824D6244B24E000FD77F4 /* Cell */,
 				D73824D4244B248400FD77F4 /* ShoppingListTableViewController.swift */,
+				D73824F0244F9F3F00FD77F4 /* SettingsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -117,8 +140,39 @@
 			isa = PBXGroup;
 			children = (
 				D73824D7244B253200FD77F4 /* ShoppingListTableViewCell.swift */,
+				D73824F2244FA05100FD77F4 /* IconsCollectionViewCell.swift */,
+				D73824F6244FA9E900FD77F4 /* IconsTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		D73824E1244CEFA900FD77F4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D73824DF244CDB4E00FD77F4 /* Emodji.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D73824E2244F92CA00FD77F4 /* ChangeAppIcon */ = {
+			isa = PBXGroup;
+			children = (
+				D73824E3244F92E400FD77F4 /* App Icons */,
+			);
+			path = ChangeAppIcon;
+			sourceTree = "<group>";
+		};
+		D73824E3244F92E400FD77F4 /* App Icons */ = {
+			isa = PBXGroup;
+			children = (
+				D73824E9244F936C00FD77F4 /* shopping1@2x.png */,
+				D73824E4244F936C00FD77F4 /* shopping1@3x .png */,
+				D73824E5244F936C00FD77F4 /* shopping2@2x.png */,
+				D73824E6244F936C00FD77F4 /* shopping2@3x .png */,
+				D73824E7244F936C00FD77F4 /* shopping3@2x.png */,
+				D73824E8244F936C00FD77F4 /* shopping3@3x .png */,
+			);
+			path = "App Icons";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,8 +233,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D73824EA244F936C00FD77F4 /* shopping1@3x .png in Resources */,
 				D73824C8244B223E00FD77F4 /* LaunchScreen.storyboard in Resources */,
+				D73824EE244F936C00FD77F4 /* shopping3@3x .png in Resources */,
+				D73824EB244F936C00FD77F4 /* shopping2@2x.png in Resources */,
+				D73824EC244F936C00FD77F4 /* shopping2@3x .png in Resources */,
 				D73824C5244B223E00FD77F4 /* Assets.xcassets in Resources */,
+				D73824EF244F936C00FD77F4 /* shopping1@2x.png in Resources */,
+				D73824ED244F936C00FD77F4 /* shopping3@2x.png in Resources */,
 				D73824C0244B223D00FD77F4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,9 +254,13 @@
 			files = (
 				D73824D8244B253200FD77F4 /* ShoppingListTableViewCell.swift in Sources */,
 				D73824C3244B223D00FD77F4 /* Shopping_List.xcdatamodeld in Sources */,
+				D73824F3244FA05100FD77F4 /* IconsCollectionViewCell.swift in Sources */,
 				D73824B9244B223D00FD77F4 /* AppDelegate.swift in Sources */,
+				D73824E0244CDB4E00FD77F4 /* Emodji.swift in Sources */,
 				D73824BB244B223D00FD77F4 /* SceneDelegate.swift in Sources */,
 				D73824D5244B248400FD77F4 /* ShoppingListTableViewController.swift in Sources */,
+				D73824F1244F9F3F00FD77F4 /* SettingsTableViewController.swift in Sources */,
+				D73824F7244FA9E900FD77F4 /* IconsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

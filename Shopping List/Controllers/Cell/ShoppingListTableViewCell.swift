@@ -14,7 +14,6 @@ class ShoppingListTableViewCell: UITableViewCell {
     @IBOutlet weak var imageLabel: UILabel!
     @IBOutlet weak var buyLabel: UILabel!
 
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,7 +28,9 @@ class ShoppingListTableViewCell: UITableViewCell {
             self.buyLabel.text = "Нужно купить"
             self.buyLabel.textColor = .systemRed
         }
-        self.imageLabel.text = "🍪"
+        let emodji = Emodji()
+        let emodjiImage = emodji.setupName(list.name ?? "")
+        self.imageLabel.text = emodjiImage
     }
 
 }
