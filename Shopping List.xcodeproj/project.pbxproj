@@ -26,6 +26,7 @@
 		D73825032450431C00FD77F4 /* shopping0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D73824FD2450431C00FD77F4 /* shopping0@2x.png */; };
 		D7382506245059D300FD77F4 /* shopping3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7382504245059D200FD77F4 /* shopping3@2x.png */; };
 		D7382507245059D300FD77F4 /* shopping3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7382505245059D300FD77F4 /* shopping3@3x.png */; };
+		D738250924507DDD00FD77F4 /* AppIconServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738250824507DDD00FD77F4 /* AppIconServise.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		D73824FD2450431C00FD77F4 /* shopping0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping0@2x.png"; sourceTree = "<group>"; };
 		D7382504245059D200FD77F4 /* shopping3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping3@2x.png"; sourceTree = "<group>"; };
 		D7382505245059D300FD77F4 /* shopping3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping3@3x.png"; sourceTree = "<group>"; };
+		D738250824507DDD00FD77F4 /* AppIconServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconServise.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				D73824E3244F92E400FD77F4 /* App Icons */,
+				D738250824507DDD00FD77F4 /* AppIconServise.swift */,
 			);
 			path = ChangeAppIcon;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D73824D8244B253200FD77F4 /* ShoppingListTableViewCell.swift in Sources */,
+				D738250924507DDD00FD77F4 /* AppIconServise.swift in Sources */,
 				D73824C3244B223D00FD77F4 /* Shopping_List.xcdatamodeld in Sources */,
 				D73824F3244FA05100FD77F4 /* IconsCollectionViewCell.swift in Sources */,
 				D73824B9244B223D00FD77F4 /* AppDelegate.swift in Sources */,

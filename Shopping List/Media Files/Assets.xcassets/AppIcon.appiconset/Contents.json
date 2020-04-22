@@ -88,7 +88,6 @@
       "size" : "40x40"
     },
     {
-      "filename" : "iTunesArtwork@3x.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
@@ -100,7 +99,6 @@
       "size" : "76x76"
     },
     {
-      "filename" : "Icon-App-76x76@1x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"

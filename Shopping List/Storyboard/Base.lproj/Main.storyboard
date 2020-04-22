@@ -142,7 +142,7 @@
                         <sections>
                             <tableViewSection headerTitle="ИКОНКА ПРИЛОЖЕНИЯ" id="5t6-Mc-YmG">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="124" id="rp8-Hy-Tq8" customClass="IconsTableViewCell" customModule="Shopping_List" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="124" id="rp8-Hy-Tq8">
                                         <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="124"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rp8-Hy-Tq8" id="u6D-Pn-X7b">
@@ -166,13 +166,9 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="116"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qh0-tz-sfh">
-                                                                        <rect key="frame" x="10" y="0.0" width="80" height="80"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="80" id="EEc-gm-JbN"/>
-                                                                        </constraints>
-                                                                        <state key="normal" title="Button" image="shopping1 .png"/>
-                                                                    </button>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kPc-6t-cH7">
+                                                                        <rect key="frame" x="10" y="8" width="80" height="80"/>
+                                                                    </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Основная" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEi-bF-i4a">
                                                                         <rect key="frame" x="0.0" y="93" width="100" height="15"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -181,17 +177,18 @@
                                                                     </label>
                                                                 </subviews>
                                                                 <constraints>
-                                                                    <constraint firstItem="qh0-tz-sfh" firstAttribute="top" secondItem="SDr-Ra-nzP" secondAttribute="top" id="QvK-hh-Wsd"/>
-                                                                    <constraint firstItem="yEi-bF-i4a" firstAttribute="top" secondItem="qh0-tz-sfh" secondAttribute="bottom" constant="13" id="UqZ-G1-Fwa"/>
-                                                                    <constraint firstItem="yEi-bF-i4a" firstAttribute="leading" secondItem="SDr-Ra-nzP" secondAttribute="leading" id="dYg-m0-ods"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="yEi-bF-i4a" secondAttribute="trailing" id="eEg-wj-yTg"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="qh0-tz-sfh" secondAttribute="trailing" constant="10" id="fh1-75-4W3"/>
-                                                                    <constraint firstItem="qh0-tz-sfh" firstAttribute="leading" secondItem="SDr-Ra-nzP" secondAttribute="leading" constant="10" id="hDv-zD-9HJ"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="yEi-bF-i4a" secondAttribute="bottom" constant="8" id="7dV-7d-RCS"/>
+                                                                    <constraint firstItem="yEi-bF-i4a" firstAttribute="leading" secondItem="SDr-Ra-nzP" secondAttribute="leading" id="7rQ-hx-Dij"/>
+                                                                    <constraint firstItem="kPc-6t-cH7" firstAttribute="top" secondItem="SDr-Ra-nzP" secondAttribute="top" constant="8" id="WOE-2N-V3j"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="yEi-bF-i4a" secondAttribute="trailing" id="byZ-xc-mLJ"/>
+                                                                    <constraint firstItem="kPc-6t-cH7" firstAttribute="leading" secondItem="SDr-Ra-nzP" secondAttribute="leading" constant="10" id="cUa-Se-iz6"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="kPc-6t-cH7" secondAttribute="trailing" constant="10" id="cv2-2a-nRY"/>
+                                                                    <constraint firstItem="yEi-bF-i4a" firstAttribute="top" secondItem="kPc-6t-cH7" secondAttribute="bottom" constant="5" id="z2U-9g-oEo"/>
                                                                 </constraints>
                                                             </collectionViewCellContentView>
                                                             <size key="customSize" width="100" height="116"/>
                                                             <connections>
-                                                                <outlet property="iconsButtonImage" destination="qh0-tz-sfh" id="WNK-x1-pcI"/>
+                                                                <outlet property="iconImage" destination="kPc-6t-cH7" id="DAQ-xO-gAQ"/>
                                                                 <outlet property="iconsName" destination="yEi-bF-i4a" id="T4I-ax-AMz"/>
                                                             </connections>
                                                         </collectionViewCell>
@@ -222,7 +219,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vau-ik-Jor" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076.8115942028987" y="832.33695652173924"/>
+            <point key="canvasLocation" x="1076.8115942028987" y="831.69642857142856"/>
         </scene>
         <!--Настройки-->
         <scene sceneID="aOs-sK-yRk">
@@ -247,7 +244,6 @@
     <resources>
         <image name="doc.text.fill" catalog="system" width="115" height="128"/>
         <image name="gear" catalog="system" width="128" height="119"/>
-        <image name="shopping1 .png" width="368.6400146484375" height="368.6400146484375"/>
         <image name="text.badge.plus" catalog="system" width="128" height="109"/>
         <image name="text.justify" catalog="system" width="128" height="100"/>
     </resources>

@@ -10,7 +10,9 @@ import UIKit
 
 class IconsCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var iconsButtonImage: UIButton!
+
+    @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var iconsName: UILabel!
-    
+
+
 }

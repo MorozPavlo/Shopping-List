@@ -11,6 +11,7 @@ import UIKit
 class SettingsTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    let appIconServise = AppIconServise()
 
     var imageSetNames: [String] = ["shopping0@3x.png","shopping1@3x.png","shopping2@3x.png","shopping3@3x.png"]
     var imageNames: [String] = ["Основная","Синий Бриз","Необычность","Простота"]
@@ -33,14 +34,31 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
 
            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! IconsCollectionViewCell
 
-        cell.iconsButtonImage.setTitle("", for: .normal)
+
         let image = UIImage(named: imageSetNames[indexPath.row], in: Bundle.main, compatibleWith: nil)
-        cell.iconsButtonImage.setBackgroundImage(image, for: .normal)
+        cell.iconImage.image = image
         cell.iconsName.text = imageNames[indexPath.row]
-        cell.iconsButtonImage.layer.cornerRadius = 16
-        cell.iconsButtonImage.clipsToBounds = true
+        cell.iconImage.layer.cornerRadius = 16
+        cell.iconImage.clipsToBounds = true
 
            return cell
        }
+
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+            switch indexPath.row {
+            case 0:
+                appIconServise.changeAppIcon(to: .primaryAppIcon)
+                case 1:
+                    appIconServise.changeAppIcon(to: .shopping1)
+                case 2:
+                    appIconServise.changeAppIcon(to: .shopping2)
+                case 3:
+                    appIconServise.changeAppIcon(to: .shopping3)
+            default:
+                appIconServise.changeAppIcon(to: .primaryAppIcon)
+            }
+
+        }
 
 }
