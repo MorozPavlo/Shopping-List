@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1pL-KM-ZMA">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -12,7 +12,7 @@
             <objects>
                 <tableViewController id="cJr-Sa-JSb" customClass="ShoppingListTableViewController" customModule="Shopping_List" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="wbp-cx-itd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -100,7 +100,7 @@
                     <tabBarItem key="tabBarItem" title="" image="doc.text.fill" catalog="system" id="DKq-2y-zeU"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="qqS-JU-ZuM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -136,56 +136,69 @@
             <objects>
                 <tableViewController id="Suj-pY-TuH" customClass="SettingsTableViewController" customModule="Shopping_List" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="rqh-ra-9vI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Выберите иконку" id="5t6-Mc-YmG">
+                            <tableViewSection headerTitle="ИКОНКА ПРИЛОЖЕНИЯ" id="5t6-Mc-YmG">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="83" id="rp8-Hy-Tq8" customClass="IconsTableViewCell" customModule="Shopping_List" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="83"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="124" id="rp8-Hy-Tq8" customClass="IconsTableViewCell" customModule="Shopping_List" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="124"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rp8-Hy-Tq8" id="u6D-Pn-X7b">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="83"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="124"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="myB-wK-1Ms">
-                                                    <rect key="frame" x="16" y="0.0" width="382" height="83"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FT8-A0-1lf">
-                                                        <size key="itemSize" width="81" height="84"/>
+                                                    <rect key="frame" x="16" y="0.0" width="382" height="124"/>
+                                                    <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FT8-A0-1lf">
+                                                        <size key="itemSize" width="100" height="116"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="iconCell" id="9FD-RI-Gg5" customClass="IconsCollectionViewCell" customModule="Shopping_List" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="84" height="84"/>
+                                                            <rect key="frame" x="0.0" y="4" width="100" height="116"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="SDr-Ra-nzP">
-                                                                <rect key="frame" x="0.0" y="0.0" width="84" height="84"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="116"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qh0-tz-sfh">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="84" height="84"/>
+                                                                        <rect key="frame" x="10" y="0.0" width="80" height="80"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="80" id="EEc-gm-JbN"/>
+                                                                        </constraints>
                                                                         <state key="normal" title="Button" image="shopping1 .png"/>
                                                                     </button>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Основная" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEi-bF-i4a">
+                                                                        <rect key="frame" x="0.0" y="93" width="100" height="15"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                 </subviews>
                                                                 <constraints>
-                                                                    <constraint firstItem="qh0-tz-sfh" firstAttribute="leading" secondItem="SDr-Ra-nzP" secondAttribute="leading" id="3hW-n1-e6I"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="qh0-tz-sfh" secondAttribute="trailing" id="9J4-9B-eBJ"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="qh0-tz-sfh" secondAttribute="bottom" id="CJl-2P-oJs"/>
-                                                                    <constraint firstItem="qh0-tz-sfh" firstAttribute="top" secondItem="SDr-Ra-nzP" secondAttribute="top" id="kCI-lY-zhJ"/>
+                                                                    <constraint firstItem="qh0-tz-sfh" firstAttribute="top" secondItem="SDr-Ra-nzP" secondAttribute="top" id="QvK-hh-Wsd"/>
+                                                                    <constraint firstItem="yEi-bF-i4a" firstAttribute="top" secondItem="qh0-tz-sfh" secondAttribute="bottom" constant="13" id="UqZ-G1-Fwa"/>
+                                                                    <constraint firstItem="yEi-bF-i4a" firstAttribute="leading" secondItem="SDr-Ra-nzP" secondAttribute="leading" id="dYg-m0-ods"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="yEi-bF-i4a" secondAttribute="trailing" id="eEg-wj-yTg"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="qh0-tz-sfh" secondAttribute="trailing" constant="10" id="fh1-75-4W3"/>
+                                                                    <constraint firstItem="qh0-tz-sfh" firstAttribute="leading" secondItem="SDr-Ra-nzP" secondAttribute="leading" constant="10" id="hDv-zD-9HJ"/>
                                                                 </constraints>
                                                             </collectionViewCellContentView>
-                                                            <size key="customSize" width="84" height="84"/>
+                                                            <size key="customSize" width="100" height="116"/>
                                                             <connections>
-                                                                <outlet property="iconsImageCell" destination="qh0-tz-sfh" id="Rrv-Xg-IMk"/>
+                                                                <outlet property="iconsButtonImage" destination="qh0-tz-sfh" id="WNK-x1-pcI"/>
+                                                                <outlet property="iconsName" destination="yEi-bF-i4a" id="T4I-ax-AMz"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
                                             </subviews>
+                                            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="myB-wK-1Ms" secondAttribute="bottom" id="4I2-Xx-fph"/>
                                                 <constraint firstItem="myB-wK-1Ms" firstAttribute="leading" secondItem="u6D-Pn-X7b" secondAttribute="leading" constant="16" id="OO3-YV-WIX"/>
@@ -203,6 +216,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Настройки" id="I0K-Cf-TXd"/>
+                    <connections>
+                        <outlet property="collectionView" destination="myB-wK-1Ms" id="XnQ-Uu-3Ub"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vau-ik-Jor" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -215,7 +231,7 @@
                     <tabBarItem key="tabBarItem" title="Настройки" image="gear" catalog="system" id="08b-6n-hsy"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kFN-jf-5hN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
