@@ -30,6 +30,7 @@ class ShoppingListTableViewController: UITableViewController {
 
         setupUI()
         fetchData()
+
     }
 
     @objc func didBecomeActive(_ notification: Notification) {
@@ -166,16 +167,20 @@ extension ShoppingListTableViewController {
             navigationItem.leftBarButtonItem = editButton // assign button
             addButton.tintColor = .white
             tableView.separatorColor = .systemOrange
+            tabBarController?.tabBar.unselectedItemTintColor = .white
+            tabBarController?.tabBar.tintColor = .systemOrange
 
         } else {
             navigationController?.navigationBar.barStyle = .default
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemOrange]
-
             editButton.image = UIImage(systemName: "arrow.up.arrow.down")
             editButton.tintColor = .black
             addButton.tintColor = .black
             navigationItem.leftBarButtonItem = editButton // assign button
             tableView.separatorColor = .systemOrange
+            tabBarController?.tabBar.unselectedItemTintColor = .black
+            tabBarController?.tabBar.tintColor = .systemOrange
+
         }
     }
 }
