@@ -28,7 +28,7 @@ class AppIconServise {
                 print(error?.localizedDescription ?? "")
                 return
             }
-            print(appIconValue)
         }
+
     }
 }

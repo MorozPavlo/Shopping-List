@@ -32,6 +32,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         
+        NotificationCenter.default.post(
+            name: Notification.Name("didBecomeActive"),
+        object: self,
+        userInfo: nil)
         print("ddwdw2")
                
     }
@@ -45,7 +49,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-        print("ddwdw4")
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

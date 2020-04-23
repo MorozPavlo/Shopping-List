@@ -1,3 +1,4 @@
+
 //
 //  ShoppingListTableViewController.swift
 //  Shopping List
@@ -12,17 +13,31 @@ import CoreData
 class ShoppingListTableViewController: UITableViewController {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
-    
-    
+
+
     private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var shoppingList: [List]  = []
     var styleDark: Bool = false
-    
+
     override func viewDidLoad() {
+
         super.viewDidLoad()
+
+        NotificationCenter.default.addObserver(self,
+        selector: #selector(didBecomeActive(_:)),
+        name: Notification.Name(rawValue: "didBecomeActive"),
+        object: nil)
+
         setupUI()
         fetchData()
     }
+
+    @objc func didBecomeActive(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.setupUI()
+        }
+    }
+
 
     // MARK: - Table view data source
 
@@ -81,7 +96,7 @@ class ShoppingListTableViewController: UITableViewController {
         shoppingList.insert(oldList, at: destinationIndexPath.row)
 
         tableView.reloadData()
-        
+
 
     }
 
@@ -103,7 +118,9 @@ class ShoppingListTableViewController: UITableViewController {
     }
 
     @objc private func toggleEditing() {
-        self.tableView.setEditing(!self.tableView.isEditing, animated: true)
+
+
+self.tableView.setEditing(!self.tableView.isEditing, animated: true)
 
         if(self.tableView.isEditing == true)
         {
@@ -138,7 +155,10 @@ extension ShoppingListTableViewController {
 
         if self.traitCollection.userInterfaceStyle  == .dark {
             styleDark = true
+        } else {
+            styleDark = false
         }
+
         if styleDark {
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             editButton.image = UIImage(systemName: "arrow.up.arrow.down")
@@ -153,6 +173,7 @@ extension ShoppingListTableViewController {
 
             editButton.image = UIImage(systemName: "arrow.up.arrow.down")
             editButton.tintColor = .black
+            addButton.tintColor = .black
             navigationItem.leftBarButtonItem = editButton // assign button
             tableView.separatorColor = .systemOrange
         }
@@ -297,7 +318,7 @@ extension ShoppingListTableViewController {
     private func fetchData() {
 
         let fetchRequest: NSFetchRequest<List> = List.fetchRequest()
-        
+
         let sort = NSSortDescriptor(key: "order", ascending: true)
         fetchRequest.sortDescriptors = [sort]
         do {
@@ -308,3 +329,4 @@ extension ShoppingListTableViewController {
         }
     }
 }
+

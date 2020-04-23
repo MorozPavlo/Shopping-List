@@ -23,6 +23,8 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
         collectionView.dataSource = self
     }
 
+    
+
 
     // MARK: UICollectionViewDataSource
        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -59,6 +61,10 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
                 appIconServise.changeAppIcon(to: .primaryAppIcon)
             }
 
+            let alert = UIAlertController(title: "Вы изменили иконку приложения!", message: nil, preferredStyle: .alert)
+                       let okAction = UIAlertAction(title: "ОК", style: .default, handler: nil)
+                       alert.addAction(okAction)
+                       present(alert, animated: true)
         }
 
 }
