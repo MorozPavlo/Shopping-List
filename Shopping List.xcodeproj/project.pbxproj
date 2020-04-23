@@ -27,6 +27,7 @@
 		D7382506245059D300FD77F4 /* shopping3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7382504245059D200FD77F4 /* shopping3@2x.png */; };
 		D7382507245059D300FD77F4 /* shopping3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7382505245059D300FD77F4 /* shopping3@3x.png */; };
 		D738250924507DDD00FD77F4 /* AppIconServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738250824507DDD00FD77F4 /* AppIconServise.swift */; };
+		D738250B2451D3B000FD77F4 /* 5.1 - BG.png in Resources */ = {isa = PBXBuildFile; fileRef = D738250A2451D3B000FD77F4 /* 5.1 - BG.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		D7382504245059D200FD77F4 /* shopping3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping3@2x.png"; sourceTree = "<group>"; };
 		D7382505245059D300FD77F4 /* shopping3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping3@3x.png"; sourceTree = "<group>"; };
 		D738250824507DDD00FD77F4 /* AppIconServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconServise.swift; sourceTree = "<group>"; };
+		D738250A2451D3B000FD77F4 /* 5.1 - BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5.1 - BG.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 		D73824E2244F92CA00FD77F4 /* ChangeAppIcon */ = {
 			isa = PBXGroup;
 			children = (
+				D738250A2451D3B000FD77F4 /* 5.1 - BG.png */,
 				D73824E3244F92E400FD77F4 /* App Icons */,
 				D738250824507DDD00FD77F4 /* AppIconServise.swift */,
 			);
@@ -240,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D73825022450431C00FD77F4 /* shopping1@3x.png in Resources */,
+				D738250B2451D3B000FD77F4 /* 5.1 - BG.png in Resources */,
 				D73824C8244B223E00FD77F4 /* LaunchScreen.storyboard in Resources */,
 				D73824C5244B223E00FD77F4 /* Assets.xcassets in Resources */,
 				D73824C0244B223D00FD77F4 /* Main.storyboard in Resources */,

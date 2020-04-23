@@ -13,20 +13,22 @@ import CoreData
 class ShoppingListTableViewController: UITableViewController {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
+    @IBOutlet weak var copyAll: UIBarButtonItem!
 
 
     private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var shoppingList: [List]  = []
     var styleDark: Bool = false
 
-    override func viewDidLoad() {
+    //MARK: - ViewDidLoad
 
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(self,
-        selector: #selector(didBecomeActive(_:)),
-        name: Notification.Name(rawValue: "didBecomeActive"),
-        object: nil)
+                                               selector: #selector(didBecomeActive(_:)),
+                                               name: Notification.Name(rawValue: "didBecomeActive"),
+                                               object: nil)
 
         setupUI()
         fetchData()
@@ -118,10 +120,11 @@ class ShoppingListTableViewController: UITableViewController {
         return configuration
     }
 
+    // MARK: - Change Style and UpdateOrders
     @objc private func toggleEditing() {
 
 
-self.tableView.setEditing(!self.tableView.isEditing, animated: true)
+        self.tableView.setEditing(!self.tableView.isEditing, animated: true)
 
         if(self.tableView.isEditing == true)
         {
@@ -137,12 +140,51 @@ self.tableView.setEditing(!self.tableView.isEditing, animated: true)
         }
     }
 
+    // MARK: - Show edit Alert
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         showEditAlert(title: "Редактирование позиции", message: "На что изменить?", shoppingList: shoppingList[indexPath.row])
     }
 
+//    override func tableView(_ tableView: UITableView, canPerformAction action:
+//        Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+//        if (action.description == "copy:") {
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
+//
+//    override func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+//        if (action.description == "copy:") {
+//
+//            UIPasteboard.general.string = shoppingList[indexPath.row].name
+//        }
+//    }
+//
+//    override func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+
+    // MARK: - Copy List
+
+    @IBAction func copyAllList(_ sender: Any) {
+
+        UIPasteboard.general.strings?.removeAll()
+        for names in shoppingList {
+            guard let name = names.name else { return }
+            UIPasteboard.general.strings?.append("\n\(name)")
+        }
+        UIPasteboard.general.strings?.insert("Список покупок:\n----------", at: 0)
+
+        let alert = UIAlertController(title: "Продукты скопированы в буфер обмена!", message: nil, preferredStyle: .alert)
+                              let okAction = UIAlertAction(title: "Ок", style: .default, handler: nil)
+                              alert.addAction(okAction)
+                              present(alert, animated: true)
+    }
 }
+
 
 // MARK: - SetupUI
 extension ShoppingListTableViewController {
@@ -166,6 +208,7 @@ extension ShoppingListTableViewController {
             editButton.tintColor = .white
             navigationItem.leftBarButtonItem = editButton // assign button
             addButton.tintColor = .white
+            copyAll.tintColor = .white
             tableView.separatorColor = .systemOrange
             tabBarController?.tabBar.unselectedItemTintColor = .white
             tabBarController?.tabBar.tintColor = .systemOrange
@@ -176,6 +219,7 @@ extension ShoppingListTableViewController {
             editButton.image = UIImage(systemName: "arrow.up.arrow.down")
             editButton.tintColor = .black
             addButton.tintColor = .black
+            copyAll.tintColor = .black
             navigationItem.leftBarButtonItem = editButton // assign button
             tableView.separatorColor = .systemOrange
             tabBarController?.tabBar.unselectedItemTintColor = .black

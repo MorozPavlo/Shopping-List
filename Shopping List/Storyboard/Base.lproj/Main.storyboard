@@ -75,9 +75,17 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Ep0-cE-onL">
-                        <barButtonItem key="leftBarButtonItem" image="text.justify" catalog="system" id="5n4-48-Fx1">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem image="text.justify" catalog="system" id="5n4-48-Fx1">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="arrow.up.doc" catalog="system" id="Cxa-S0-Kbc">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="copyAllList:" destination="cJr-Sa-JSb" id="27U-mC-Mdh"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" image="text.badge.plus" catalog="system" style="done" id="hQ2-zJ-G1M">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -87,6 +95,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="hQ2-zJ-G1M" id="q8g-p0-9Y3"/>
+                        <outlet property="copyAll" destination="Cxa-S0-Kbc" id="mEW-lM-v0n"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7s-8e-elr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -235,8 +244,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1b3-iJ-X6Y" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Настройки" image="gear" catalog="system" id="08b-6n-hsy"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kFN-jf-5hN">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="kFN-jf-5hN">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -250,6 +259,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.up.doc" catalog="system" width="115" height="128"/>
         <image name="doc.text.fill" catalog="system" width="115" height="128"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="text.badge.plus" catalog="system" width="128" height="109"/>
