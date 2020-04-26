@@ -1,15 +1,15 @@
 
 /* Class = "UITabBarItem"; title = "Настройки"; ObjectID = "08b-6n-hsy"; */
-"08b-6n-hsy.title" = "Настройки";
+"08b-6n-hsy.title" = "Settings";
 
 /* Class = "UITableViewSection"; headerTitle = "ИКОНКА ПРИЛОЖЕНИЯ"; ObjectID = "5t6-Mc-YmG"; */
-"5t6-Mc-YmG.headerTitle" = "ИКОНКА ПРИЛОЖЕНИЯ";
+"5t6-Mc-YmG.headerTitle" = "APPLICATION ICON";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Cxa-S0-Kbc"; */
 "Cxa-S0-Kbc.title" = "Item";
 
 /* Class = "UINavigationItem"; title = "Настройки"; ObjectID = "I0K-Cf-TXd"; */
-"I0K-Cf-TXd.title" = "Настройки";
+"I0K-Cf-TXd.title" = "Settings";
 
 /* Class = "UILabel"; text = "🍊"; ObjectID = "Iad-W4-TR3"; */
 "Iad-W4-TR3.text" = "🍊";

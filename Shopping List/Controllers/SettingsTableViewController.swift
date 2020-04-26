@@ -14,11 +14,15 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
     let appIconServise = AppIconServise()
 
     var imageSetNames: [String] = ["shopping0@3x.png","shopping1@3x.png","shopping2@3x.png","shopping3@3x.png"]
-    var imageNames: [String] = ["Основная","Синий Бриз","Необычность","Простота"]
+    var imageNames: [String] = [NSLocalizedString("Main", comment: ""),
+                                NSLocalizedString("BlueBreeze", comment: ""),
+                                NSLocalizedString("Unusual", comment: ""),
+                                NSLocalizedString("Simplicity", comment: "")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = NSLocalizedString("Settings", comment: "")
         collectionView.delegate = self
         collectionView.dataSource = self
     }
@@ -64,7 +68,7 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
                 appIconServise.changeAppIcon(to: .primaryAppIcon)
             }
 
-            let alert = UIAlertController(title: "Вы изменили иконку приложения!", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: NSLocalizedString("ChangedApplicationIcon", comment: ""), message: nil, preferredStyle: .alert)
                        let okAction = UIAlertAction(title: "ОК", style: .default, handler: nil)
                        alert.addAction(okAction)
                        present(alert, animated: true)

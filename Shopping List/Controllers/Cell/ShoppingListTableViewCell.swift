@@ -22,10 +22,10 @@ class ShoppingListTableViewCell: UITableViewCell {
     func set(list: List) {
         self.nameLabel.text = list.name
         if list.isBuy {
-            self.buyLabel.text = "В Корзине"
+            self.buyLabel.text = NSLocalizedString("InTheBasket", comment: "")
             self.buyLabel.textColor = .systemGreen
         } else {
-            self.buyLabel.text = "Нужно купить"
+            self.buyLabel.text = NSLocalizedString("NeedToBuy", comment: "")
             self.buyLabel.textColor = .systemRed
         }
         let emodji = Emodji()

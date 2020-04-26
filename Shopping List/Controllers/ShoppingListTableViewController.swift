@@ -15,6 +15,8 @@ class ShoppingListTableViewController: UITableViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var copyAll: UIBarButtonItem!
 
+    @IBOutlet weak var priceView: UIView!
+    @IBOutlet weak var priceViewHight: NSLayoutConstraint!
 
     private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var shoppingList: [List]  = []
@@ -32,13 +34,30 @@ class ShoppingListTableViewController: UITableViewController {
 
         setupUI()
         fetchData()
+        DispatchQueue.main.async {
 
+            self.priceView.isHidden = false
+        self.priceViewHight.constant = 0
+        self.priceView.layoutIfNeeded()
+            }
     }
+    
 
     @objc func didBecomeActive(_ notification: Notification) {
         DispatchQueue.main.async {
             self.setupUI()
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
+        DispatchQueue.main.async {
+
+            self.priceView.isHidden = false
+        self.priceViewHight.constant = 0
+        self.priceView.layoutIfNeeded()
+            }
     }
 
 
@@ -61,7 +80,7 @@ class ShoppingListTableViewController: UITableViewController {
 
     @IBAction func addNewProduct(_ sender: Any) {
 
-        showAlert(title: "Добавление позиции", message: "Что хотите добавить в список?")
+        showAlert(title: NSLocalizedString("AddingPosition", comment: ""), message: NSLocalizedString("WhatToAdd", comment: ""))
     }
 
     // MARK: - Buy Actions
@@ -144,44 +163,54 @@ class ShoppingListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        showEditAlert(title: "Редактирование позиции", message: "На что изменить?", shoppingList: shoppingList[indexPath.row])
+        showEditAlert(title: NSLocalizedString("EditPosition", comment: ""), message: NSLocalizedString("WhatToChange", comment: ""), shoppingList: shoppingList[indexPath.row])
     }
 
-//    override func tableView(_ tableView: UITableView, canPerformAction action:
-//        Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-//        if (action.description == "copy:") {
-//            return true
-//        } else {
-//            return false
-//        }
-//    }
-//
-//    override func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
-//        if (action.description == "copy:") {
-//
-//            UIPasteboard.general.string = shoppingList[indexPath.row].name
-//        }
-//    }
-//
-//    override func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
+    //    override func tableView(_ tableView: UITableView, canPerformAction action:
+    //        Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+    //        if (action.description == "copy:") {
+    //            return true
+    //        } else {
+    //            return false
+    //        }
+    //    }
+    //
+    //    override func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
+    //        if (action.description == "copy:") {
+    //
+    //            UIPasteboard.general.string = shoppingList[indexPath.row].name
+    //        }
+    //    }
+    //
+    //    override func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+    //        return true
+    //    }
 
     // MARK: - Copy List
 
     @IBAction func copyAllList(_ sender: Any) {
 
         UIPasteboard.general.strings?.removeAll()
-        for names in shoppingList {
-            guard let name = names.name else { return }
-            UIPasteboard.general.strings?.append("\n\(name)")
+        for names in shoppingList  {
+            if names.isBuy == false {
+                guard let name = names.name else { return }
+                UIPasteboard.general.strings?.append("\n\(name)")
+            }
         }
-        UIPasteboard.general.strings?.insert("Список покупок:\n----------", at: 0)
+        UIPasteboard.general.strings?.insert(NSLocalizedString("ShoppingList", comment: "")+":\n----------", at: 0)
 
-        let alert = UIAlertController(title: "Продукты скопированы в буфер обмена!", message: nil, preferredStyle: .alert)
-                              let okAction = UIAlertAction(title: "Ок", style: .default, handler: nil)
-                              alert.addAction(okAction)
-                              present(alert, animated: true)
+
+        var alertTitle = ""
+        if shoppingList.isEmpty == false {
+            alertTitle = NSLocalizedString("ListSaveToBufer", comment: "")
+        } else {
+            alertTitle = NSLocalizedString("ListDontSaveToBufer", comment: "")
+        }
+
+        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ок", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
 
@@ -190,8 +219,7 @@ class ShoppingListTableViewController: UITableViewController {
 extension ShoppingListTableViewController {
 
     func setupUI() {
-        self.title = "Список покупок"
-
+        self.title = NSLocalizedString("ShoppingList", comment: "")
 
         navigationItem.leftBarButtonItem = editButtonItem
         let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditing))
@@ -233,7 +261,7 @@ extension ShoppingListTableViewController {
 extension ShoppingListTableViewController {
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Добавить", style: .default) { _ in
+        let saveAction = UIAlertAction(title: NSLocalizedString("Add", comment: ""), style: .default) { _ in
             guard let task = alert.textFields?.first?.text, !task.isEmpty else {
                 print("The text field is empty")
                 return
@@ -242,7 +270,7 @@ extension ShoppingListTableViewController {
             self.save(task)
         }
 
-        let cancelAction = UIAlertAction(title: "Отменить", style: .destructive)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
         alert.addTextField()
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
@@ -251,7 +279,7 @@ extension ShoppingListTableViewController {
 
     private func showEditAlert(title: String, message: String, shoppingList: List) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Редактировать", style: .default) { _ in
+        let saveAction = UIAlertAction(title: NSLocalizedString("Edit", comment: ""), style: .default) { _ in
             guard let task = alert.textFields?.first?.text, !task.isEmpty else {
                 print("The text field is empty")
                 return
@@ -260,7 +288,7 @@ extension ShoppingListTableViewController {
             self.updateList(task, order: Int(shoppingList.order))
         }
 
-        let cancelAction = UIAlertAction(title: "Отменить", style: .destructive)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
         alert.addTextField()
         alert.textFields?.first?.text = shoppingList.name
         alert.addAction(saveAction)

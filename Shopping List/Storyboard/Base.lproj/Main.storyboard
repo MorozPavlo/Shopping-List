@@ -16,14 +16,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="separatorColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="0ww-nh-0Mu">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="41"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Итого цена: 100 ₴" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6p-fq-rCJ">
+                                    <rect key="frame" x="16" y="3" width="382" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="xoq-5W-PWT"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="T6p-fq-rCJ" secondAttribute="trailing" constant="16" id="MQs-DL-aTm"/>
+                                <constraint firstAttribute="bottom" secondItem="T6p-fq-rCJ" secondAttribute="bottom" constant="3" id="QzY-HP-ihI"/>
+                                <constraint firstItem="T6p-fq-rCJ" firstAttribute="leading" secondItem="0ww-nh-0Mu" secondAttribute="leading" constant="16" id="eyA-xK-zU8"/>
+                                <constraint firstItem="T6p-fq-rCJ" firstAttribute="top" secondItem="0ww-nh-0Mu" secondAttribute="top" constant="3" id="j80-NV-anG"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="shoppingList" rowHeight="52" id="0sg-ja-KnD" customClass="ShoppingListTableViewCell" customModule="Shopping_List" customModuleProvider="target">
-                                <rect key="frame" x="20" y="55.333332061767578" width="374" height="52"/>
+                                <rect key="frame" x="20" y="96.333332061767578" width="374" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0sg-ja-KnD" id="L87-g8-c51">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="52"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25 ₴" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VB2-Mh-OYa">
+                                            <rect key="frame" x="252" y="3" width="106" height="46"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="106" id="o4o-zw-3au"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ITn-Ox-SQF">
                                             <rect key="frame" x="16" y="8" width="342" height="36"/>
                                             <subviews>
@@ -57,8 +88,11 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="ITn-Ox-SQF" secondAttribute="bottom" constant="8" id="6HI-AI-n6f"/>
+                                        <constraint firstAttribute="bottom" secondItem="VB2-Mh-OYa" secondAttribute="bottom" constant="3" id="L6V-mH-5ZU"/>
+                                        <constraint firstAttribute="trailing" secondItem="VB2-Mh-OYa" secondAttribute="trailing" constant="16" id="kZl-Qv-9jw"/>
                                         <constraint firstAttribute="trailing" secondItem="ITn-Ox-SQF" secondAttribute="trailing" constant="16" id="lUP-AQ-j2w"/>
                                         <constraint firstItem="ITn-Ox-SQF" firstAttribute="leading" secondItem="L87-g8-c51" secondAttribute="leading" constant="16" id="rXO-1a-9Ct"/>
+                                        <constraint firstItem="VB2-Mh-OYa" firstAttribute="top" secondItem="L87-g8-c51" secondAttribute="top" constant="3" id="rZl-No-GhY"/>
                                         <constraint firstItem="ITn-Ox-SQF" firstAttribute="top" secondItem="L87-g8-c51" secondAttribute="top" constant="8" id="zvJ-QX-bQV"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -96,11 +130,13 @@
                     <connections>
                         <outlet property="addButton" destination="hQ2-zJ-G1M" id="q8g-p0-9Y3"/>
                         <outlet property="copyAll" destination="Cxa-S0-Kbc" id="mEW-lM-v0n"/>
+                        <outlet property="priceView" destination="0ww-nh-0Mu" id="Hny-VP-GHT"/>
+                        <outlet property="priceViewHight" destination="xoq-5W-PWT" id="XJr-MT-s3U"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7s-8e-elr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1836.2318840579712" y="127.17391304347827"/>
+            <point key="canvasLocation" x="1836.2318840579712" y="126.5625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sI5-vD-jxn">
@@ -157,10 +193,42 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
-                            <tableViewSection headerTitle="ИКОНКА ПРИЛОЖЕНИЯ" id="5t6-Mc-YmG">
+                            <tableViewSection headerTitle="СПИСОК ПОКУПОК" footerTitle="При добавлении товара в корзину вы сможете указать его стоимость." id="4O8-30-8Ze">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="61" id="R0i-Ei-MVF">
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="61"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R0i-Ei-MVF" id="FkN-U0-7FG">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="61"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="o5v-6S-aP8">
+                                                    <rect key="frame" x="329" y="15" width="51" height="31"/>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вести учёт стоимости" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCS-Cg-tSx">
+                                                    <rect key="frame" x="28" y="19" width="293" height="23"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="o5v-6S-aP8" secondAttribute="trailing" constant="16" id="2Ea-Hc-l3G"/>
+                                                <constraint firstItem="o5v-6S-aP8" firstAttribute="leading" secondItem="rCS-Cg-tSx" secondAttribute="trailing" constant="8" id="48b-ek-BJf"/>
+                                                <constraint firstItem="rCS-Cg-tSx" firstAttribute="top" secondItem="FkN-U0-7FG" secondAttribute="topMargin" constant="8" id="4cb-Av-SNg"/>
+                                                <constraint firstItem="rCS-Cg-tSx" firstAttribute="leading" secondItem="FkN-U0-7FG" secondAttribute="leadingMargin" constant="8" id="LV5-FL-G6N"/>
+                                                <constraint firstItem="o5v-6S-aP8" firstAttribute="centerY" secondItem="FkN-U0-7FG" secondAttribute="centerY" id="o0W-F1-GJ7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="rCS-Cg-tSx" secondAttribute="bottom" constant="8" id="x7e-Dd-ufP"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="ИКОНКА ПРИЛОЖЕНИЯ" footerTitle="Выберите иконку на свой вкус!" id="5t6-Mc-YmG">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="124" id="rp8-Hy-Tq8">
-                                        <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="124"/>
+                                        <rect key="frame" x="0.0" y="207.66666412353516" width="414" height="124"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rp8-Hy-Tq8" id="u6D-Pn-X7b">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="124"/>
