@@ -56,13 +56,17 @@
 		D7382505245059D300FD77F4 /* shopping3@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping3@3x.png"; sourceTree = "<group>"; };
 		D738250824507DDD00FD77F4 /* AppIconServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconServise.swift; sourceTree = "<group>"; };
 		D738250A2451D3B000FD77F4 /* 5.1 - BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "5.1 - BG.png"; sourceTree = "<group>"; };
-		D7F8B09924545A0100079B38 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		D7F8B09D24545A6A00079B38 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D7F8B09F24545A6F00079B38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		D7F8B0A124545AF700079B38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		D7F8B0A52454653E00079B38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D7F8B0A72454654000079B38 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D7F8B0A9245465A200079B38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D7F8B0B02456E99F00079B38 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Main.strings; sourceTree = "<group>"; };
+		D7F8B0B12456E99F00079B38 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D7F8B0B22456E99F00079B38 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D7F8B0B32456E99F00079B38 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D7F8B0B72456E9CC00079B38 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		D7F8B0B92456E9D000079B38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,12 +102,12 @@
 				D73824E2244F92CA00FD77F4 /* ChangeAppIcon */,
 				D73824D0244B22B200FD77F4 /* Supportings Files */,
 				D73824D1244B22C000FD77F4 /* Controllers */,
-				D73824CF244B228800FD77F4 /* Storyboard */,
 				D73824D2244B22D100FD77F4 /* Media Files */,
 				D73824D3244B234500FD77F4 /* Core Data */,
 				D73824E1244CEFA900FD77F4 /* Models */,
-				D7F8B09E24545A6A00079B38 /* Localizable.strings */,
+				D73824CF244B228800FD77F4 /* Storyboard */,
 				D7F8B0A62454653E00079B38 /* InfoPlist.strings */,
+				D7F8B09E24545A6A00079B38 /* Localizable.strings */,
 			);
 			path = "Shopping List";
 			sourceTree = "<group>";
@@ -238,6 +242,7 @@
 				en,
 				Base,
 				ru,
+				uk,
 			);
 			mainGroup = D73824AC244B223D00FD77F4;
 			productRefGroup = D73824B6244B223D00FD77F4 /* Products */;
@@ -297,8 +302,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				D73824BF244B223D00FD77F4 /* Base */,
-				D7F8B09924545A0100079B38 /* ru */,
-				D7F8B0A124545AF700079B38 /* en */,
+				D7F8B0B02456E99F00079B38 /* uk */,
+				D7F8B0B72456E9CC00079B38 /* ru */,
+				D7F8B0B92456E9D000079B38 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -308,6 +314,7 @@
 			children = (
 				D73824C7244B223E00FD77F4 /* Base */,
 				D7F8B0A9245465A200079B38 /* en */,
+				D7F8B0B12456E99F00079B38 /* uk */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -317,6 +324,7 @@
 			children = (
 				D7F8B09D24545A6A00079B38 /* ru */,
 				D7F8B09F24545A6F00079B38 /* en */,
+				D7F8B0B32456E99F00079B38 /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -326,6 +334,7 @@
 			children = (
 				D7F8B0A52454653E00079B38 /* en */,
 				D7F8B0A72454654000079B38 /* ru */,
+				D7F8B0B22456E99F00079B38 /* uk */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

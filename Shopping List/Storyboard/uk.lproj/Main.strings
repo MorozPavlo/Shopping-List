@@ -1,27 +1,27 @@
 
 /* Class = "UITabBarItem"; title = "Настройки"; ObjectID = "08b-6n-hsy"; */
-"08b-6n-hsy.title" = "Settings";
+"08b-6n-hsy.title" = "Налаштування";
 
 /* Class = "UITableViewSection"; footerTitle = "Вы сможете указать стоимость продукта, когда положите его в корзину."; ObjectID = "4O8-30-8Ze"; */
-"4O8-30-8Ze.footerTitle" = "You will be able to indicate the cost of the product when you put it in the basket.";
+"4O8-30-8Ze.footerTitle" = "Ви зможете вказати вартість продукту, коли покладете його в кошик.";
 
 /* Class = "UITableViewSection"; headerTitle = "СПИСОК ПОКУПОК"; ObjectID = "4O8-30-8Ze"; */
-"4O8-30-8Ze.headerTitle" = "SHOPPING LIST";
+"4O8-30-8Ze.headerTitle" = "СПИСОК ПОКУПОК";
 
 /* Class = "UITableViewSection"; footerTitle = "Выберите иконку на свой вкус!"; ObjectID = "5t6-Mc-YmG"; */
-"5t6-Mc-YmG.footerTitle" = "Choose the icon you like!";
+"5t6-Mc-YmG.footerTitle" = "Виберіть іконку на свій смак!";
 
 /* Class = "UITableViewSection"; headerTitle = "ИКОНКА ПРИЛОЖЕНИЯ"; ObjectID = "5t6-Mc-YmG"; */
-"5t6-Mc-YmG.headerTitle" = "APPLICATION ICON";
+"5t6-Mc-YmG.headerTitle" = "Іконка додатку";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Cxa-S0-Kbc"; */
 "Cxa-S0-Kbc.title" = "Item";
 
 /* Class = "UIButton"; normalTitle = "₴"; ObjectID = "HFT-Z8-9rw"; */
-"HFT-Z8-9rw.normalTitle" = "$";
+"HFT-Z8-9rw.normalTitle" = "₴";
 
 /* Class = "UINavigationItem"; title = "Настройки"; ObjectID = "I0K-Cf-TXd"; */
-"I0K-Cf-TXd.title" = "Settings";
+"I0K-Cf-TXd.title" = "Налаштування";
 
 /* Class = "UILabel"; text = "🍊"; ObjectID = "Iad-W4-TR3"; */
 "Iad-W4-TR3.text" = "🍊";
@@ -30,16 +30,16 @@
 "T6p-fq-rCJ.text" = "Всего чек: 100 ₴";
 
 /* Class = "UILabel"; text = "В корзине"; ObjectID = "WrO-ny-oNv"; */
-"WrO-ny-oNv.text" = "В корзине";
+"WrO-ny-oNv.text" = "В кошику";
 
 /* Class = "UILabel"; text = "Валюта"; ObjectID = "XtA-Y2-PF6"; */
-"XtA-Y2-PF6.text" = "Currency";
+"XtA-Y2-PF6.text" = "Валюта";
 
 /* Class = "UILabel"; text = "Апельсин"; ObjectID = "bnu-p7-XYV"; */
 "bnu-p7-XYV.text" = "Апельсин";
 
 /* Class = "UILabel"; text = "Вести учёт стоимости"; ObjectID = "rCS-Cg-tSx"; */
-"rCS-Cg-tSx.text" = "Maintain cost accounting";
+"rCS-Cg-tSx.text" = "Вести облік вартості";
 
 /* Class = "UILabel"; text = "Основная"; ObjectID = "yEi-bF-i4a"; */
 "yEi-bF-i4a.text" = "Основная";

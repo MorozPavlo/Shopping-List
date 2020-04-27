@@ -31,5 +31,11 @@
 //Список покупок буфер обмена
 "ListSaveToBufer" = "Products copied to clipboard!";
 "ListDontSaveToBufer" = "Product list is empty!";
-
-
+//Всего чек
+"CurrencyTotal" = "Total check: %.2f";
+//Выбор валюты
+"CurrencyChoose" = "Choose currency";
+"Successfully" = "Successfully!";
+"CurrencyChooseSuccessfully" = "Currency set";
+"Save" = "Save";
+"OK" = "OK";

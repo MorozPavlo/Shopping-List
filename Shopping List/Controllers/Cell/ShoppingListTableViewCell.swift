@@ -13,14 +13,22 @@ class ShoppingListTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var imageLabel: UILabel!
     @IBOutlet weak var buyLabel: UILabel!
+    @IBOutlet weak var costLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    private let defaults = UserDefaults.standard
+    private var costAccounting: Bool = false
+    
+
 
     func set(list: List) {
+
+        costAccounting = defaults.bool(forKey: "costAccounting")
+        costLabel.isHidden = !costAccounting
+
+        //self.nameLabel.text = " \(list.name!) (id \(list.order))"
         self.nameLabel.text = list.name
+        let currency = defaults.string(forKey: "currency") ?? "₴"
+        self.costLabel.text = "\(list.cost) \(currency)"
         if list.isBuy {
             self.buyLabel.text = NSLocalizedString("InTheBasket", comment: "")
             self.buyLabel.textColor = .systemGreen
