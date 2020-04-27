@@ -14,13 +14,14 @@ class ShoppingListTableViewController: UITableViewController {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var copyAll: UIBarButtonItem!
-
     @IBOutlet weak var priceView: UIView!
-    @IBOutlet weak var priceViewHight: NSLayoutConstraint!
+    @IBOutlet weak var priceLabel: UILabel!
 
     private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var shoppingList: [List]  = []
-    var styleDark: Bool = false
+    private var styleDark: Bool = false
+    private let defaults = UserDefaults.standard
+    private var costAccounting: Bool = false
 
     //MARK: - ViewDidLoad
 
@@ -34,12 +35,6 @@ class ShoppingListTableViewController: UITableViewController {
 
         setupUI()
         fetchData()
-        DispatchQueue.main.async {
-
-            self.priceView.isHidden = false
-        self.priceViewHight.constant = 0
-        self.priceView.layoutIfNeeded()
-            }
     }
     
 
@@ -52,14 +47,20 @@ class ShoppingListTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
 
-        DispatchQueue.main.async {
+        costAccounting = defaults.bool(forKey: "costAccounting")
 
-            self.priceView.isHidden = false
-        self.priceViewHight.constant = 0
-        self.priceView.layoutIfNeeded()
-            }
+        if costAccounting {
+            priceView.isHidden = false
+            priceView.frame.size.height = 30
+        } else {
+            priceView.isHidden = true
+            priceView.frame.size.height = 0
+        }
+        tableView.reloadData()
+
+        priceLabel.layer.cornerRadius = 8
+        priceLabel.clipsToBounds = true
     }
-
 
     // MARK: - Table view data source
 
@@ -69,6 +70,7 @@ class ShoppingListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "shoppingList", for: indexPath) as! ShoppingListTableViewCell
         let list = shoppingList[indexPath.row]
         cell.set(list: list)
@@ -93,8 +95,13 @@ class ShoppingListTableViewController: UITableViewController {
     // MARK: - Buy Actions configuration
     func doneAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Done") { (action, view, completion) in
-            self.updatePurchases(self.shoppingList[indexPath.row])
-            self.tableView.reloadData()
+            if self.costAccounting && self.shoppingList[indexPath.row].cost == 0.0 {
+                self.showAddPositionAleft(title: "Стоимость товара", message: "Укажите стоимость", shoppingList: self.shoppingList[indexPath.row])
+            } else {
+                self.updatePurchases(self.shoppingList[indexPath.row])
+            }
+            //self.updatePurchases(self.shoppingList[indexPath.row])
+            //self.tableView.reloadData()
             completion(true)
         }
         if shoppingList[indexPath.row].isBuy == false {
@@ -166,26 +173,6 @@ class ShoppingListTableViewController: UITableViewController {
         showEditAlert(title: NSLocalizedString("EditPosition", comment: ""), message: NSLocalizedString("WhatToChange", comment: ""), shoppingList: shoppingList[indexPath.row])
     }
 
-    //    override func tableView(_ tableView: UITableView, canPerformAction action:
-    //        Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-    //        if (action.description == "copy:") {
-    //            return true
-    //        } else {
-    //            return false
-    //        }
-    //    }
-    //
-    //    override func tableView(_ tableView: UITableView, performAction action: Selector, forRowAt indexPath: IndexPath, withSender sender: Any?) {
-    //        if (action.description == "copy:") {
-    //
-    //            UIPasteboard.general.string = shoppingList[indexPath.row].name
-    //        }
-    //    }
-    //
-    //    override func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
-    //        return true
-    //    }
-
     // MARK: - Copy List
 
     @IBAction func copyAllList(_ sender: Any) {
@@ -221,6 +208,8 @@ extension ShoppingListTableViewController {
     func setupUI() {
         self.title = NSLocalizedString("ShoppingList", comment: "")
 
+        self.costAccounting = defaults.bool(forKey: "costAccounting")
+
         navigationItem.leftBarButtonItem = editButtonItem
         let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditing))
 
@@ -237,7 +226,8 @@ extension ShoppingListTableViewController {
             navigationItem.leftBarButtonItem = editButton // assign button
             addButton.tintColor = .white
             copyAll.tintColor = .white
-            tableView.separatorColor = .systemOrange
+            tableView.separatorColor = .systemYellow
+            priceLabel.textColor = .black
             tabBarController?.tabBar.unselectedItemTintColor = .white
             tabBarController?.tabBar.tintColor = .systemOrange
 
@@ -249,16 +239,35 @@ extension ShoppingListTableViewController {
             addButton.tintColor = .black
             copyAll.tintColor = .black
             navigationItem.leftBarButtonItem = editButton // assign button
-            tableView.separatorColor = .systemOrange
+            tableView.separatorColor = .systemYellow
             tabBarController?.tabBar.unselectedItemTintColor = .black
             tabBarController?.tabBar.tintColor = .systemOrange
 
         }
+        setupCost()
+    }
+
+    // MARK: - UpdateCost
+
+    func setupCost() {
+        var total: Double = 0.0
+        for cost in shoppingList {
+            if cost.isBuy == true {
+            total += cost.cost
+            }
+        }
+        let currency = defaults.string(forKey: "currency") ?? "₴"
+
+        //priceLabel.text = "Всего чек: \(total) \(currency)"
+
+        let formatString = NSLocalizedString("CurrencyTotal", comment: "") + (" \(currency)")
+        priceLabel.text = String.localizedStringWithFormat(formatString, total)
     }
 }
 
 // MARK: - Alert controller
 extension ShoppingListTableViewController {
+
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let saveAction = UIAlertAction(title: NSLocalizedString("Add", comment: ""), style: .default) { _ in
@@ -281,16 +290,66 @@ extension ShoppingListTableViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let saveAction = UIAlertAction(title: NSLocalizedString("Edit", comment: ""), style: .default) { _ in
             guard let task = alert.textFields?.first?.text, !task.isEmpty else {
-                print("The text field is empty")
+                print("The text field is empty1")
                 return
             }
 
-            self.updateList(task, order: Int(shoppingList.order))
+            let count = alert.textFields?[1].text
+            var doubleValue: Double = 0.0
+            if let doubleCont = count {
+                let newDouble = doubleCont.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)
+                doubleValue = Double(newDouble) ?? 0.0
+            }
+
+            self.updateList(task, listCost: doubleValue , order: Int(shoppingList.order))
+
         }
 
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
         alert.addTextField()
         alert.textFields?.first?.text = shoppingList.name
+        if costAccounting {
+            alert.addTextField { (textFeild) in
+
+                textFeild.keyboardType = .decimalPad
+                if shoppingList.cost == 0.0 {
+                    textFeild.placeholder = "Введите стоимость"
+                } else {
+                    textFeild.text = "\(shoppingList.cost)"
+                }
+            }
+        }
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+
+    private func showAddPositionAleft(title: String, message: String, shoppingList: List) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Сохранить", style: .default) { _ in
+
+            let count = alert.textFields?.first?.text
+            var doubleValue: Double = 0.0
+            if let doubleCont = count {
+                let newDouble = doubleCont.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)
+                doubleValue = Double(newDouble) ?? 0.0
+            }
+
+            self.updateList(shoppingList.name, listCost: doubleValue , order: Int(shoppingList.order))
+            
+            self.updatePurchases(shoppingList)
+        }
+
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
+
+        alert.addTextField { (textFeild) in
+            textFeild.keyboardType = .decimalPad
+            if shoppingList.cost == 0.0 {
+                textFeild.placeholder = "Введите стоимость"
+            } else {
+                textFeild.text = "\(shoppingList.cost)"
+            }
+        }
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)
@@ -334,16 +393,19 @@ extension ShoppingListTableViewController {
         } catch let error as NSError {
             print("error: \(error.localizedDescription)")
         }
+        setupCost()
     }
 
-    private func updateList(_ listName: String, order: Int) {
+    private func updateList(_ listName: String?, listCost: Double, order: Int) {
 
         viewContext.setValue(listName, forKey: "name")
+
         for (_,list) in shoppingList.enumerated() {
 
             if list.order == Int32(order) {
-                //print(list.name)
                 list.name = listName
+                list.cost = listCost
+
                 self.tableView.reloadData()
             }
         }
@@ -352,14 +414,14 @@ extension ShoppingListTableViewController {
         } catch let error as NSError {
             print("error: \(error.localizedDescription)")
         }
+        setupCost()
     }
 
     private func updatePurchases(_ listName: List) {
 
+
         if listName.isBuy == false {
             listName.isBuy = true
-
-            //arr.swapAt(0, arr.count-1)
             listName.order = Int32(shoppingList.count + 1)
             fetchData()
             tableView.reloadData()
@@ -379,6 +441,8 @@ extension ShoppingListTableViewController {
         } catch let error as NSError {
             print("error: \(error.localizedDescription)")
         }
+        updateOrders()
+        setupCost()
     }
 
     private func updateOrders() {

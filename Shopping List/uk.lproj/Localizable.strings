@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  Shopping List
+
+  Created by Pavel Moroz on 25.04.2020.
+  Copyright © 2020 Pavel Moroz. All rights reserved.
+*/
+
+//Таб бар
+"ShoppingList" = "Список покупок";
+"Settings" = "Налаштування";
+//Иконки
+"Main" = "Основна";
+"BlueBreeze" = "Синій Бриз";
+"Unusual" = "Незвичайність";
+"Simplicity" = "Простота";
+//Статус продукта
+"NeedToBuy" = "Потрібно купити";
+"InTheBasket" = "В кошику";
+//Алерт добаления продукта
+"AddingPosition" = "Додавання позиції";
+"WhatToAdd" = "Що хочете додати в список?";
+"Add" = "Додати";
+"Cancel" = "Скасувати";
+//Изменение иконки
+"ChangedApplicationIcon" = "Ви змінили іконку додатку!";
+//Редактировать
+"Edit" = "Редагувати";
+"EditPosition" = "Редагування позиції";
+"WhatToChange" = "На що змінити?";
+//Список покупок буфер обмена
+"ListSaveToBufer" = "Продукти скопійовані в буфер обміну!";
+"ListDontSaveToBufer" = "Список продуктів порожній!";
+//Всего чек
+"CurrencyTotal" = "Всього чек:%.2f";
+//Выбор валюты
+"CurrencyChoose" = "Виберіть валюту";
+"Successfully" = "Успішно!";
+"CurrencyChooseSuccessfully" = "Валюта встановлена";
+"Save" = "Зберегти";
+"OK" = "Добре";
