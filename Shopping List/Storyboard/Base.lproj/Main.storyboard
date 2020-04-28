@@ -36,6 +36,7 @@
                             <constraints>
                                 <constraint firstItem="T6p-fq-rCJ" firstAttribute="centerY" secondItem="0ww-nh-0Mu" secondAttribute="centerY" id="JHv-hX-REs"/>
                                 <constraint firstAttribute="bottom" secondItem="T6p-fq-rCJ" secondAttribute="bottom" constant="3" id="QzY-HP-ihI"/>
+                                <constraint firstItem="T6p-fq-rCJ" firstAttribute="leading" relation="lessThanOrEqual" secondItem="0ww-nh-0Mu" secondAttribute="leading" constant="253" id="bhn-za-qre"/>
                                 <constraint firstAttribute="trailing" secondItem="T6p-fq-rCJ" secondAttribute="trailing" constant="16" id="btU-7N-6kW"/>
                                 <constraint firstItem="T6p-fq-rCJ" firstAttribute="top" secondItem="0ww-nh-0Mu" secondAttribute="top" constant="3" id="j80-NV-anG"/>
                             </constraints>
@@ -127,16 +128,24 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" image="text.badge.plus" catalog="system" style="done" id="hQ2-zJ-G1M">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="addNewProduct:" destination="cJr-Sa-JSb" id="Azz-9n-4t4"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="text.badge.plus" catalog="system" style="done" id="hQ2-zJ-G1M">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="addNewProduct:" destination="cJr-Sa-JSb" id="Azz-9n-4t4"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="trash" catalog="system" id="lcI-GK-h7e">
+                                <connections>
+                                    <action selector="deleteListButton:" destination="cJr-Sa-JSb" id="Wtn-Cx-N5R"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="hQ2-zJ-G1M" id="q8g-p0-9Y3"/>
                         <outlet property="copyAll" destination="Cxa-S0-Kbc" id="mEW-lM-v0n"/>
+                        <outlet property="deleteList" destination="lcI-GK-h7e" id="zJd-nA-nsL"/>
                         <outlet property="priceLabel" destination="T6p-fq-rCJ" id="V2h-JB-vf3"/>
                         <outlet property="priceView" destination="0ww-nh-0Mu" id="Hny-VP-GHT"/>
                     </connections>
@@ -386,5 +395,6 @@
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="text.badge.plus" catalog="system" width="128" height="109"/>
         <image name="text.justify" catalog="system" width="128" height="100"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
     </resources>
 </document>

@@ -14,6 +14,8 @@ class ShoppingListTableViewController: UITableViewController {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var copyAll: UIBarButtonItem!
+    @IBOutlet weak var deleteList: UIBarButtonItem!
+
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
 
@@ -35,6 +37,9 @@ class ShoppingListTableViewController: UITableViewController {
 
         setupUI()
         fetchData()
+        if shoppingList.isEmpty {
+        showAlert(title: NSLocalizedString("AddingPosition", comment: ""), message: NSLocalizedString("WhatToAdd", comment: ""))
+        }
     }
     
 
@@ -47,19 +52,8 @@ class ShoppingListTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
 
-        costAccounting = defaults.bool(forKey: "costAccounting")
-
-        if costAccounting {
-            priceView.isHidden = false
-            priceView.frame.size.height = 30
-        } else {
-            priceView.isHidden = true
-            priceView.frame.size.height = 0
-        }
-        tableView.reloadData()
-
-        priceLabel.layer.cornerRadius = 8
-        priceLabel.clipsToBounds = true
+        setupCost()
+        setupViewWillAppear()
     }
 
     // MARK: - Table view data source
@@ -96,7 +90,7 @@ class ShoppingListTableViewController: UITableViewController {
     func doneAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Done") { (action, view, completion) in
             if self.costAccounting && self.shoppingList[indexPath.row].cost == 0.0 {
-                self.showAddPositionAleft(title: "Стоимость товара", message: "Укажите стоимость", shoppingList: self.shoppingList[indexPath.row])
+                self.showAddPositionAleft(title: NSLocalizedString("CostOfGoods", comment: ""), message: NSLocalizedString("EnterСost", comment: ""), shoppingList: self.shoppingList[indexPath.row])
             } else {
                 self.updatePurchases(self.shoppingList[indexPath.row])
             }
@@ -149,21 +143,66 @@ class ShoppingListTableViewController: UITableViewController {
     // MARK: - Change Style and UpdateOrders
     @objc private func toggleEditing() {
 
+        if shoppingList.isEmpty == false {
 
-        self.tableView.setEditing(!self.tableView.isEditing, animated: true)
+            self.tableView.setEditing(!self.tableView.isEditing, animated: true)
 
-        if(self.tableView.isEditing == true)
-        {
-            self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "checkmark")
-            self.navigationItem.leftBarButtonItem?.tintColor = .systemGreen
+            if(self.tableView.isEditing == true)
+            {
+                self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "checkmark")
+                self.navigationItem.leftBarButtonItem?.tintColor = .systemGreen
+            }
+            else
+            {
+                self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "arrow.up.arrow.down")
+                self.navigationItem.leftBarButtonItem?.tintColor = styleDark ? .white : .black
+
+                updateOrders()
+            }
+        } else {
+            let alertTitle = NSLocalizedString("ListDontSaveToBufer", comment: "")
+            let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ок", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true)
         }
-        else
-        {
-            self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "arrow.up.arrow.down")
-            self.navigationItem.leftBarButtonItem?.tintColor = styleDark ? .white : .black
+    }
 
-            updateOrders()
+
+    ///тут заменить
+    @IBAction func deleteListButton(_ sender: Any) {
+
+        if shoppingList.isEmpty == false && isPurchasedItemsInList(true) == true {
+
+            deleteListInBusketAleft()
+
+        } else {
+            let alertTitle = NSLocalizedString("NotToDelete", comment: "")
+            let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ок", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true)
         }
+
+    }
+
+    private func deleteListInBusketAleft() {
+        let alert = UIAlertController(title: NSLocalizedString("DeletingItems", comment: ""), message: NSLocalizedString("AreYouSure", comment: ""), preferredStyle: .alert)
+          let saveAction = UIAlertAction(title: NSLocalizedString("Del", comment: ""), style: .default) { _ in
+            for (_,list) in self.shoppingList.enumerated() {
+                if list.isBuy {
+                    if let index = self.shoppingList.firstIndex(of: list) {
+                    self.delete(self.shoppingList[index])
+                    self.shoppingList.remove(at: index)
+                    }
+                    self.tableView.reloadData()
+                }
+            }
+              }
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
 
     // MARK: - Show edit Alert
@@ -177,27 +216,49 @@ class ShoppingListTableViewController: UITableViewController {
 
     @IBAction func copyAllList(_ sender: Any) {
 
-        UIPasteboard.general.strings?.removeAll()
-        for names in shoppingList  {
-            if names.isBuy == false {
-                guard let name = names.name else { return }
-                UIPasteboard.general.strings?.append("\n\(name)")
-            }
-        }
-        UIPasteboard.general.strings?.insert(NSLocalizedString("ShoppingList", comment: "")+":\n----------", at: 0)
+        if shoppingList.isEmpty == false && isPurchasedItemsInList(false) == false {
+        
+        var items:[String] = []
+        var index = 1
+        var listString = ""
+                for names in shoppingList  {
+                    if names.isBuy == false {
+                        guard let name = names.name else { return }
 
+                        listString += "\(index).\(name)\n"
+                        index += 1
+                    }
+                }
 
-        var alertTitle = ""
-        if shoppingList.isEmpty == false {
-            alertTitle = NSLocalizedString("ListSaveToBufer", comment: "")
+        let title = (NSLocalizedString("ShoppingList", comment: "")+":\n----------\n")
+        let message = title + listString
+        items.append(message)
+        let shareController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(shareController, animated: true, completion: nil)
+
         } else {
-            alertTitle = NSLocalizedString("ListDontSaveToBufer", comment: "")
+            let alertTitle = NSLocalizedString("NotToBuy", comment: "")
+            let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ок", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true)
         }
+    }
 
-        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ок", style: .default, handler: nil)
-        alert.addAction(okAction)
-        present(alert, animated: true)
+    private func setupViewWillAppear() {
+        costAccounting = defaults.bool(forKey: "costAccounting")
+
+        if costAccounting {
+            priceView.isHidden = false
+            priceView.frame.size.height = 30
+        } else {
+            priceView.isHidden = true
+            priceView.frame.size.height = 0
+        }
+        tableView.reloadData()
+
+        priceLabel.layer.cornerRadius = 8
+        priceLabel.clipsToBounds = true
     }
 }
 
@@ -226,6 +287,7 @@ extension ShoppingListTableViewController {
             navigationItem.leftBarButtonItem = editButton // assign button
             addButton.tintColor = .white
             copyAll.tintColor = .white
+            deleteList.tintColor = .white
             tableView.separatorColor = .systemYellow
             priceLabel.textColor = .black
             tabBarController?.tabBar.unselectedItemTintColor = .white
@@ -238,6 +300,7 @@ extension ShoppingListTableViewController {
             editButton.tintColor = .black
             addButton.tintColor = .black
             copyAll.tintColor = .black
+            deleteList.tintColor = .black
             navigationItem.leftBarButtonItem = editButton // assign button
             tableView.separatorColor = .systemYellow
             tabBarController?.tabBar.unselectedItemTintColor = .black
@@ -253,15 +316,41 @@ extension ShoppingListTableViewController {
         var total: Double = 0.0
         for cost in shoppingList {
             if cost.isBuy == true {
-            total += cost.cost
+                total += cost.cost
             }
         }
-        let currency = defaults.string(forKey: "currency") ?? "₴"
+        let currency = defaults.string(forKey: "currency") ?? NSLocalizedString("CurrencyTotal", comment: "")
 
         //priceLabel.text = "Всего чек: \(total) \(currency)"
 
         let formatString = NSLocalizedString("CurrencyTotal", comment: "") + (" \(currency)")
         priceLabel.text = String.localizedStringWithFormat(formatString, total)
+    }
+
+    private func isPurchasedItemsInList (_ statusList:Bool) -> Bool {
+
+        //Если true, то нам важно, что в списке есть купленные, чтоб удалить
+        switch  statusList {
+        case true :
+            var isPurchasedItemsInList = false
+            for list in shoppingList {
+                if list.isBuy {
+                    isPurchasedItemsInList = true
+                    break
+                }
+            }
+                return isPurchasedItemsInList
+
+        case false :
+            var isPurchasedItemsInList = true
+            for list in shoppingList {
+                if !list.isBuy {
+                    isPurchasedItemsInList = false
+                    break
+                }
+            }
+                return isPurchasedItemsInList
+        }
     }
 }
 
@@ -302,9 +391,7 @@ extension ShoppingListTableViewController {
             }
 
             self.updateList(task, listCost: doubleValue , order: Int(shoppingList.order))
-
         }
-
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
         alert.addTextField()
         alert.textFields?.first?.text = shoppingList.name
@@ -313,7 +400,7 @@ extension ShoppingListTableViewController {
 
                 textFeild.keyboardType = .decimalPad
                 if shoppingList.cost == 0.0 {
-                    textFeild.placeholder = "Введите стоимость"
+                    textFeild.placeholder = NSLocalizedString("EnterСost", comment: "")
                 } else {
                     textFeild.text = "\(shoppingList.cost)"
                 }
@@ -326,7 +413,7 @@ extension ShoppingListTableViewController {
 
     private func showAddPositionAleft(title: String, message: String, shoppingList: List) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Сохранить", style: .default) { _ in
+        let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: .default) { _ in
 
             let count = alert.textFields?.first?.text
             var doubleValue: Double = 0.0
@@ -345,7 +432,7 @@ extension ShoppingListTableViewController {
         alert.addTextField { (textFeild) in
             textFeild.keyboardType = .decimalPad
             if shoppingList.cost == 0.0 {
-                textFeild.placeholder = "Введите стоимость"
+                textFeild.placeholder = NSLocalizedString("EnterСost", comment: "")
             } else {
                 textFeild.text = "\(shoppingList.cost)"
             }

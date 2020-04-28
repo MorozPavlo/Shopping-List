@@ -28,9 +28,6 @@
 "Edit" = "Edit";
 "EditPosition" = "Position editing";
 "WhatToChange" = "What to change?";
-//Список покупок буфер обмена
-"ListSaveToBufer" = "Products copied to clipboard!";
-"ListDontSaveToBufer" = "Product list is empty!";
 //Всего чек
 "CurrencyTotal" = "Total check: %.2f";
 //Выбор валюты
@@ -39,3 +36,18 @@
 "CurrencyChooseSuccessfully" = "Currency set";
 "Save" = "Save";
 "OK" = "OK";
+"Del" = "Delete";
+//Стоимость товара
+"CostOfGoods" = "Cost of goods";
+"EnterСost" = "Indicate the cost of goods";
+"EnterСost" = "Enter cost";
+//Удаление позиций
+"DeletingItems" = "Deleting Items";
+"AreYouSure" = "Are you sure you want to delete the items that are in the cart?";
+//Валюта
+"CurrentCurrency" = "$";
+//Копировать список
+"NotToBuy" = "There are no products to buy!";
+//Удалить список
+"NotToDelete" = "No products are in the basket!";
+
