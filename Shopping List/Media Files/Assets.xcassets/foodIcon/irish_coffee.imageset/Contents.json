@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "irish_coffee.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

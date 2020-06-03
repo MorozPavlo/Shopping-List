@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "sliced_bread.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

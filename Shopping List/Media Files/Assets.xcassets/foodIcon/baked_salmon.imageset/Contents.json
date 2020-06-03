@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "baked_salmon.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

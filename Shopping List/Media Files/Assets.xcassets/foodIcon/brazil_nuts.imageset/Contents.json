@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "brazil_nuts.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -2,40 +2,44 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>AppName</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleGetInfoString</key>
 	<string></string>
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>shopping3</key>
-			<dict>
-				<key>UIPrerenderedIcon</key>
-				<string></string>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>shopping3</string>
-				</array>
-			</dict>
-			<key>shopping2</key>
-			<dict>
-				<key>UIPrerenderedIcon</key>
-				<string>NO</string>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>shopping2</string>
-				</array>
-			</dict>
 			<key>shopping1</key>
 			<dict>
-				<key>UIPrerenderedIcon</key>
-				<string>NO</string>
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>shopping1</string>
 				</array>
+				<key>UIPrerenderedIcon</key>
+				<string>NO</string>
+			</dict>
+			<key>shopping2</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>shopping2</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<string>NO</string>
+			</dict>
+			<key>shopping3</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>shopping3</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<string></string>
 			</dict>
 		</dict>
 		<key>CFBundlePrimaryIcon</key>
@@ -47,24 +51,7 @@
 			<key>UIPrerenderedIcon</key>
 			<false/>
 		</dict>
-		<key>UINewsstandIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string></string>
-			</array>
-			<key>UINewsstandBindingType</key>
-			<string>UINewsstandBindingTypeMagazine</string>
-			<key>UINewsstandBindingEdge</key>
-			<string>UINewsstandBindingEdgeLeft</string>
-		</dict>
 	</dict>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -74,9 +61,11 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

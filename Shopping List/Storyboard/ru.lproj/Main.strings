@@ -3,7 +3,7 @@
 "08b-6n-hsy.title" = "Настройки";
 
 /* Class = "UITableViewSection"; footerTitle = "Вы сможете указать стоимость продукта, когда положите его в корзину."; ObjectID = "4O8-30-8Ze"; */
-"4O8-30-8Ze.footerTitle" = "Вы сможете указать стоимость продукта, когда покладите его в корзину.";
+"4O8-30-8Ze.footerTitle" = "Вы сможете указать стоимость продукта, когда положите его в корзину.";
 
 /* Class = "UITableViewSection"; headerTitle = "СПИСОК ПОКУПОК"; ObjectID = "4O8-30-8Ze"; */
 "4O8-30-8Ze.headerTitle" = "СПИСОК ПОКУПОК";
@@ -14,6 +14,12 @@
 /* Class = "UITableViewSection"; headerTitle = "ИКОНКА ПРИЛОЖЕНИЯ"; ObjectID = "5t6-Mc-YmG"; */
 "5t6-Mc-YmG.headerTitle" = "ИКОНКА ПРИЛОЖЕНИЯ";
 
+/* Class = "UITableViewSection"; footerTitle = "Мы будем очень признательны!"; ObjectID = "7do-YM-sCH"; */
+"7do-YM-sCH.footerTitle" = "Мы будем очень признательны!";
+
+/* Class = "UITableViewSection"; headerTitle = "ОЦЕНКА ПРИЛОЖЕНИЯ"; ObjectID = "7do-YM-sCH"; */
+"7do-YM-sCH.headerTitle" = "ОЦЕНКА ПРИЛОЖЕНИЯ";
+
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Cxa-S0-Kbc"; */
 "Cxa-S0-Kbc.title" = "Item";
 
@@ -23,11 +29,11 @@
 /* Class = "UINavigationItem"; title = "Настройки"; ObjectID = "I0K-Cf-TXd"; */
 "I0K-Cf-TXd.title" = "Настройки";
 
-/* Class = "UILabel"; text = "🍊"; ObjectID = "Iad-W4-TR3"; */
-"Iad-W4-TR3.text" = "🍊";
-
 /* Class = "UILabel"; text = "Всего чек: 100 ₴"; ObjectID = "T6p-fq-rCJ"; */
 "T6p-fq-rCJ.text" = "Всего чек: 100 ₴";
+
+/* Class = "UILabel"; text = "23.3"; ObjectID = "VB2-Mh-OYa"; */
+"VB2-Mh-OYa.text" = "23.3";
 
 /* Class = "UILabel"; text = "В корзине"; ObjectID = "WrO-ny-oNv"; */
 "WrO-ny-oNv.text" = "В корзине";
@@ -35,11 +41,23 @@
 /* Class = "UILabel"; text = "Валюта"; ObjectID = "XtA-Y2-PF6"; */
 "XtA-Y2-PF6.text" = "Валюта";
 
+/* Class = "UITableViewSection"; headerTitle = "КНОПКА ДОБАВЛЕНИЯ ПОЗИЦИИ"; ObjectID = "b4z-Rb-h2f"; */
+"b4z-Rb-h2f.headerTitle" = "КНОПКА ДОБАВЛЕНИЯ ПОЗИЦИИ";
+
 /* Class = "UILabel"; text = "Апельсин"; ObjectID = "bnu-p7-XYV"; */
 "bnu-p7-XYV.text" = "Апельсин";
 
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "lcI-GK-h7e"; */
+"lcI-GK-h7e.title" = "Item";
+
 /* Class = "UILabel"; text = "Вести учёт стоимости"; ObjectID = "rCS-Cg-tSx"; */
 "rCS-Cg-tSx.text" = "Вести учёт стоимости";
+
+/* Class = "UIButton"; normalTitle = "Оценить нас в App Store "; ObjectID = "tVw-Ii-UPL"; */
+"tVw-Ii-UPL.normalTitle" = "Оценить нас в App Store ";
+
+/* Class = "UILabel"; text = "Кнопка добавления внизу"; ObjectID = "w7U-Fr-Mws"; */
+"w7U-Fr-Mws.text" = "Кнопка добавления внизу";
 
 /* Class = "UILabel"; text = "Основная"; ObjectID = "yEi-bF-i4a"; */
 "yEi-bF-i4a.text" = "Основная";

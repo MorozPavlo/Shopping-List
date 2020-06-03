@@ -50,4 +50,9 @@
 "NotToBuy" = "There are no products to buy!";
 //Удалить список
 "NotToDelete" = "No products are in the basket!";
-
+//Эмодзи
+"Emodji" = "EN";
+//Список пуст
+"ListDontSaveToBufer" = "List is empty";
+//Новая позиция
+"NewPosition" = "New position";

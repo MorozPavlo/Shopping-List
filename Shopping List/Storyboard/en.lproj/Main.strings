@@ -3,7 +3,7 @@
 "08b-6n-hsy.title" = "Settings";
 
 /* Class = "UITableViewSection"; footerTitle = "Вы сможете указать стоимость продукта, когда положите его в корзину."; ObjectID = "4O8-30-8Ze"; */
-"4O8-30-8Ze.footerTitle" = "You will be able to indicate the cost of the product when you put it in the basket.";
+"4O8-30-8Ze.footerTitle" = "You will be able to indicate the cost of the product when you add it in the basket.";
 
 /* Class = "UITableViewSection"; headerTitle = "СПИСОК ПОКУПОК"; ObjectID = "4O8-30-8Ze"; */
 "4O8-30-8Ze.headerTitle" = "SHOPPING LIST";
@@ -13,6 +13,12 @@
 
 /* Class = "UITableViewSection"; headerTitle = "ИКОНКА ПРИЛОЖЕНИЯ"; ObjectID = "5t6-Mc-YmG"; */
 "5t6-Mc-YmG.headerTitle" = "APPLICATION ICON";
+
+/* Class = "UITableViewSection"; footerTitle = "Мы будем очень признательны!"; ObjectID = "7do-YM-sCH"; */
+"7do-YM-sCH.footerTitle" = "We will be very grateful!";
+
+/* Class = "UITableViewSection"; headerTitle = "ОЦЕНКА ПРИЛОЖЕНИЯ"; ObjectID = "7do-YM-sCH"; */
+"7do-YM-sCH.headerTitle" = "RATING APP";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Cxa-S0-Kbc"; */
 "Cxa-S0-Kbc.title" = "Item";
@@ -35,11 +41,20 @@
 /* Class = "UILabel"; text = "Валюта"; ObjectID = "XtA-Y2-PF6"; */
 "XtA-Y2-PF6.text" = "Currency";
 
+/* Class = "UITableViewSection"; headerTitle = "КНОПКА ДОБАВЛЕНИЯ ПОЗИЦИИ"; ObjectID = "b4z-Rb-h2f"; */
+"b4z-Rb-h2f.headerTitle" = "POSITION ADDING BUTTON";
+
 /* Class = "UILabel"; text = "Апельсин"; ObjectID = "bnu-p7-XYV"; */
 "bnu-p7-XYV.text" = "Апельсин";
 
 /* Class = "UILabel"; text = "Вести учёт стоимости"; ObjectID = "rCS-Cg-tSx"; */
 "rCS-Cg-tSx.text" = "Maintain cost accounting";
+
+/* Class = "UIButton"; normalTitle = "Оценить нас в App Store "; ObjectID = "tVw-Ii-UPL"; */
+"tVw-Ii-UPL.normalTitle" = "Rate us on the App Store ";
+
+/* Class = "UILabel"; text = "Кнопка добавления внизу"; ObjectID = "w7U-Fr-Mws"; */
+"w7U-Fr-Mws.text" = "Button at the bottom of the list";
 
 /* Class = "UILabel"; text = "Основная"; ObjectID = "yEi-bF-i4a"; */
 "yEi-bF-i4a.text" = "Основная";

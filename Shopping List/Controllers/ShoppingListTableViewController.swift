@@ -12,9 +12,11 @@ import CoreData
 
 class ShoppingListTableViewController: UITableViewController {
 
+
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var copyAll: UIBarButtonItem!
     @IBOutlet weak var deleteList: UIBarButtonItem!
+    @IBOutlet weak var settingsButton: UIBarButtonItem!
 
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
@@ -24,8 +26,12 @@ class ShoppingListTableViewController: UITableViewController {
     private var styleDark: Bool = false
     private let defaults = UserDefaults.standard
     private var costAccounting: Bool = false
+    private var pictures = [String]()
 
-    //MARK: - ViewDidLoad
+    private let footView = UIView()
+    private let button = UIButton()
+
+    //MARK: - LifeCicleView
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,16 +43,12 @@ class ShoppingListTableViewController: UITableViewController {
 
         setupUI()
         fetchData()
-        if shoppingList.isEmpty {
-        showAlert(title: NSLocalizedString("AddingPosition", comment: ""), message: NSLocalizedString("WhatToAdd", comment: ""))
-        }
-    }
-    
+        createButton()
 
-    @objc func didBecomeActive(_ notification: Notification) {
-        DispatchQueue.main.async {
-            self.setupUI()
-        }
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.dragInteractionEnabled = true
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,12 +56,27 @@ class ShoppingListTableViewController: UITableViewController {
 
         setupCost()
         setupViewWillAppear()
+        scrollBottom()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        settingFotterView()
+    }
+
+    //MARK: - Notification
+
+
+    @objc func didBecomeActive(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.setupUI()
+        }
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+
         return shoppingList.count
     }
 
@@ -69,14 +86,30 @@ class ShoppingListTableViewController: UITableViewController {
         let list = shoppingList[indexPath.row]
         cell.set(list: list)
         return cell
-
     }
 
-    // MARK: - Add new List Func
+    // MARK: - Table view delegate
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+
+    // MARK: - Actions
 
     @IBAction func addNewProduct(_ sender: Any) {
 
         showAlert(title: NSLocalizedString("AddingPosition", comment: ""), message: NSLocalizedString("WhatToAdd", comment: ""))
+    }
+
+    func scrollBottom() {
+
+        //        self.tableView.reloadData()
+        //        DispatchQueue.main.async {
+        //            let bottomOffset = CGPoint(x: 0, y: (self.tableView.contentSize.height - self.tableView.bounds.size.height) + self.footView.frame.height)
+        //
+        //            self.tableView.setContentOffset(bottomOffset, animated: true)
+        //            self.footView.alpha = 0
+        //            }
     }
 
     // MARK: - Buy Actions
@@ -94,13 +127,12 @@ class ShoppingListTableViewController: UITableViewController {
             } else {
                 self.updatePurchases(self.shoppingList[indexPath.row])
             }
-            //self.updatePurchases(self.shoppingList[indexPath.row])
-            //self.tableView.reloadData()
             completion(true)
         }
         if shoppingList[indexPath.row].isBuy == false {
             action.backgroundColor = .systemGreen
             action.image = UIImage(systemName: "cart.badge.plus")
+
         } else {
             action.backgroundColor = .red
             action.image = UIImage(systemName: "cart.badge.minus")
@@ -119,8 +151,6 @@ class ShoppingListTableViewController: UITableViewController {
         shoppingList.insert(oldList, at: destinationIndexPath.row)
 
         tableView.reloadData()
-
-
     }
 
     // MARK: - Swipe Action (Delete)
@@ -130,9 +160,10 @@ class ShoppingListTableViewController: UITableViewController {
             self.delete(self.shoppingList[indexPath.row])
             self.shoppingList.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.updateBadgeValue()
             complete(true)
         }
-        // here set your image and background color
+
         deleteAction.image = UIImage(systemName: "trash")
         deleteAction.backgroundColor = .red
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
@@ -140,36 +171,9 @@ class ShoppingListTableViewController: UITableViewController {
         return configuration
     }
 
-    // MARK: - Change Style and UpdateOrders
-    @objc private func toggleEditing() {
-
-        if shoppingList.isEmpty == false {
-
-            self.tableView.setEditing(!self.tableView.isEditing, animated: true)
-
-            if(self.tableView.isEditing == true)
-            {
-                self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "checkmark")
-                self.navigationItem.leftBarButtonItem?.tintColor = .systemGreen
-            }
-            else
-            {
-                self.navigationItem.leftBarButtonItem?.image = UIImage(systemName: "arrow.up.arrow.down")
-                self.navigationItem.leftBarButtonItem?.tintColor = styleDark ? .white : .black
-
-                updateOrders()
-            }
-        } else {
-            let alertTitle = NSLocalizedString("ListDontSaveToBufer", comment: "")
-            let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ок", style: .default, handler: nil)
-            alert.addAction(okAction)
-            present(alert, animated: true)
-        }
-    }
+    // MARK: - DeleteAllInBusket
 
 
-    ///тут заменить
     @IBAction func deleteListButton(_ sender: Any) {
 
         if shoppingList.isEmpty == false && isPurchasedItemsInList(true) == true {
@@ -188,20 +192,21 @@ class ShoppingListTableViewController: UITableViewController {
 
     private func deleteListInBusketAleft() {
         let alert = UIAlertController(title: NSLocalizedString("DeletingItems", comment: ""), message: NSLocalizedString("AreYouSure", comment: ""), preferredStyle: .alert)
-          let saveAction = UIAlertAction(title: NSLocalizedString("Del", comment: ""), style: .default) { _ in
+        let saveAction = UIAlertAction(title: NSLocalizedString("Del", comment: ""), style: .default) { _ in
             for (_,list) in self.shoppingList.enumerated() {
                 if list.isBuy {
                     if let index = self.shoppingList.firstIndex(of: list) {
-                    self.delete(self.shoppingList[index])
-                    self.shoppingList.remove(at: index)
+                        self.delete(self.shoppingList[index])
+                        self.shoppingList.remove(at: index)
+                        self.updateBadgeValue()
                     }
                     self.tableView.reloadData()
                 }
             }
-              }
+        }
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
-        alert.addAction(saveAction)
         alert.addAction(cancelAction)
+        alert.addAction(saveAction)
         present(alert, animated: true)
     }
 
@@ -209,6 +214,9 @@ class ShoppingListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+        //Change the selected background view of the cell.
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         showEditAlert(title: NSLocalizedString("EditPosition", comment: ""), message: NSLocalizedString("WhatToChange", comment: ""), shoppingList: shoppingList[indexPath.row])
     }
 
@@ -217,24 +225,24 @@ class ShoppingListTableViewController: UITableViewController {
     @IBAction func copyAllList(_ sender: Any) {
 
         if shoppingList.isEmpty == false && isPurchasedItemsInList(false) == false {
-        
-        var items:[String] = []
-        var index = 1
-        var listString = ""
-                for names in shoppingList  {
-                    if names.isBuy == false {
-                        guard let name = names.name else { return }
 
-                        listString += "\(index).\(name)\n"
-                        index += 1
-                    }
+            var items:[String] = []
+            var index = 1
+            var listString = ""
+            for names in shoppingList  {
+                if names.isBuy == false {
+                    guard let name = names.name else { return }
+
+                    listString += "\(index).\(name)\n"
+                    index += 1
                 }
+            }
 
-        let title = (NSLocalizedString("ShoppingList", comment: "")+":\n----------\n")
-        let message = title + listString
-        items.append(message)
-        let shareController = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        present(shareController, animated: true, completion: nil)
+            let title = (NSLocalizedString("ShoppingList", comment: "")+":\n----------\n")
+            let message = title + listString
+            items.append(message)
+            let shareController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            present(shareController, animated: true, completion: nil)
 
         } else {
             let alertTitle = NSLocalizedString("NotToBuy", comment: "")
@@ -245,8 +253,14 @@ class ShoppingListTableViewController: UITableViewController {
         }
     }
 
+    // MARK: - setupViewWillAppear
+
+
     private func setupViewWillAppear() {
         costAccounting = defaults.bool(forKey: "costAccounting")
+
+        priceLabel.layer.cornerRadius = 8
+        priceLabel.clipsToBounds = true
 
         if costAccounting {
             priceView.isHidden = false
@@ -255,10 +269,23 @@ class ShoppingListTableViewController: UITableViewController {
             priceView.isHidden = true
             priceView.frame.size.height = 0
         }
-        tableView.reloadData()
 
-        priceLabel.layer.cornerRadius = 8
-        priceLabel.clipsToBounds = true
+        sutupButton()
+        tableView.reloadData()
+    }
+
+    // MARK: - closeKayboard
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
+    @IBAction func goToSettingsView(_ sender: Any) {
+
+        let settingsVC = SettingsTableViewController()
+        //settingsVC.modalPresentationStyle = .fullScreen
+        //settingsVC.delegate = self
+        present(settingsVC, animated: true, completion: nil)
     }
 }
 
@@ -271,8 +298,8 @@ extension ShoppingListTableViewController {
 
         self.costAccounting = defaults.bool(forKey: "costAccounting")
 
-        navigationItem.leftBarButtonItem = editButtonItem
-        let editButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditing))
+        //navigationItem.leftBarButtonItem = editButtonItem
+
 
         if self.traitCollection.userInterfaceStyle  == .dark {
             styleDark = true
@@ -280,51 +307,52 @@ extension ShoppingListTableViewController {
             styleDark = false
         }
 
+        //editButton.image = UIImage(systemName: "arrow.up.arrow.down")
+        //tableView.separatorColor = .lightGray
+
         if styleDark {
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-            editButton.image = UIImage(systemName: "arrow.up.arrow.down")
-            editButton.tintColor = .white
-            navigationItem.leftBarButtonItem = editButton // assign button
+
             addButton.tintColor = .white
+            settingsButton.tintColor = .white
             copyAll.tintColor = .white
             deleteList.tintColor = .white
-            tableView.separatorColor = .systemYellow
             priceLabel.textColor = .black
             tabBarController?.tabBar.unselectedItemTintColor = .white
             tabBarController?.tabBar.tintColor = .systemOrange
+            priceLabel.backgroundColor = UIColor.systemYellow.withAlphaComponent(1)
 
         } else {
             navigationController?.navigationBar.barStyle = .default
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemOrange]
-            editButton.image = UIImage(systemName: "arrow.up.arrow.down")
-            editButton.tintColor = .black
             addButton.tintColor = .black
+            settingsButton.tintColor = .black
             copyAll.tintColor = .black
             deleteList.tintColor = .black
-            navigationItem.leftBarButtonItem = editButton // assign button
-            tableView.separatorColor = .systemYellow
             tabBarController?.tabBar.unselectedItemTintColor = .black
             tabBarController?.tabBar.tintColor = .systemOrange
-
+            priceLabel.backgroundColor = UIColor.systemYellow.withAlphaComponent(0.45)
         }
+
         setupCost()
     }
 
     // MARK: - UpdateCost
 
     func setupCost() {
+
         var total: Double = 0.0
         for cost in shoppingList {
             if cost.isBuy == true {
                 total += cost.cost
             }
         }
-        let currency = defaults.string(forKey: "currency") ?? NSLocalizedString("CurrencyTotal", comment: "")
 
-        //priceLabel.text = "Всего чек: \(total) \(currency)"
-
+        let currency = defaults.string(forKey: "currency") ?? NSLocalizedString("CurrentCurrency", comment: "")
         let formatString = NSLocalizedString("CurrencyTotal", comment: "") + (" \(currency)")
+
         priceLabel.text = String.localizedStringWithFormat(formatString, total)
+
     }
 
     private func isPurchasedItemsInList (_ statusList:Bool) -> Bool {
@@ -339,7 +367,7 @@ extension ShoppingListTableViewController {
                     break
                 }
             }
-                return isPurchasedItemsInList
+            return isPurchasedItemsInList
 
         case false :
             var isPurchasedItemsInList = true
@@ -349,10 +377,108 @@ extension ShoppingListTableViewController {
                     break
                 }
             }
-                return isPurchasedItemsInList
+            return isPurchasedItemsInList
         }
     }
+
+    // MARK: - CreateBotton
+
+    func createButton() {
+
+        //let color = UIColor(red: 247/255, green: 110/255, blue: 13/255, alpha: 1)
+        let color = UIColor.systemOrange
+        //image
+        guard let image = UIImage(systemName: "plus.circle") else { return }
+        button.setImage(image, for: .normal)
+        //button.imageView?.backgroundColor = .systemOrange
+        button.imageView?.clipsToBounds = true
+        button.imageView?.layer.cornerRadius = 8
+        button.imageView?.tintColor = color
+
+        button.addTarget(self, action: #selector(addPosition), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.centerTextAndImage(spacing: 10)
+        button.contentHorizontalAlignment  = .left
+
+        button.setTitle(NSLocalizedString("NewPosition", comment: ""), for: .normal)
+        button.setTitleColor(color, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20.0, weight: .bold)
+
+
+        footView.alpha = 0
+        view.addSubview(footView)
+        view.addSubview(button)
+        footView.translatesAutoresizingMaskIntoConstraints = false
+        footView.backgroundColor = .systemGray6
+
+
+        NSLayoutConstraint.activate([
+            button.leadingAnchor.constraint(equalTo: footView.leadingAnchor, constant: 32),
+            button.trailingAnchor.constraint(equalTo: footView.trailingAnchor, constant: -8),
+            button.topAnchor.constraint(equalTo: footView.topAnchor, constant: 0),
+            button.heightAnchor.constraint(equalToConstant: 30),
+            button.widthAnchor.constraint(equalToConstant: 300)
+        ])
+
+
+        let guide = self.view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            //footView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 10),
+            footView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            footView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            footView.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: 40),
+            footView.heightAnchor.constraint(equalToConstant: 70)
+        ])
+    }
+
+
+    //               let bottomOffset = CGPoint(x: 0, y: self.tableView.contentSize.height + 10 - self.tableView.frame.size.height)
+    //               self.tableView.setContentOffset(bottomOffset, animated: false)
+
+
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+
+        settingFotterView()
+    }
+
+    override func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+
+        settingFotterView()
+    }
+
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+        settingFotterView()
+    }
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+        settingFotterView()
+    }
+
+    private func settingFotterView() {
+
+        guard let tableViewFrameMaxY = tableView.visibleCells.last?.frame.maxY else { return }
+
+        if tableViewFrameMaxY >= footView.frame.minY && footView.frame.minY != 0 {
+
+            footView.alpha = 1
+        } else {
+            footView.alpha = 0
+        }
+    }
+
 }
+
+extension UIButton {
+    func centerTextAndImage(spacing: CGFloat) {
+        let insetAmount = spacing / 2
+        imageEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+        contentEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: insetAmount)
+    }
+}
+
 
 // MARK: - Alert controller
 extension ShoppingListTableViewController {
@@ -369,31 +495,39 @@ extension ShoppingListTableViewController {
         }
 
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
-        alert.addTextField()
-        alert.addAction(saveAction)
+        alert.addTextField { [weak self] (textFeild) in
+            textFeild.delegate = self
+        }
         alert.addAction(cancelAction)
+        alert.addAction(saveAction)
         present(alert, animated: true)
     }
 
     private func showEditAlert(title: String, message: String, shoppingList: List) {
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: NSLocalizedString("Edit", comment: ""), style: .default) { _ in
+        let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: .default) { _ in
             guard let task = alert.textFields?.first?.text, !task.isEmpty else {
                 print("The text field is empty1")
                 return
             }
 
-            let count = alert.textFields?[1].text
-            var doubleValue: Double = 0.0
-            if let doubleCont = count {
-                let newDouble = doubleCont.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)
-                doubleValue = Double(newDouble) ?? 0.0
+            var doubleValue: Double? = nil
+
+            if self.defaults.bool(forKey: "costAccounting") {
+                let count = alert.textFields?[1].text
+                if let doubleCont = count {
+                    let newDouble = doubleCont.replacingOccurrences(of: ",", with: ".", options: .literal, range: nil)
+                    doubleValue = Double(newDouble) ?? 0.0
+                }
             }
 
             self.updateList(task, listCost: doubleValue , order: Int(shoppingList.order))
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
-        alert.addTextField()
+        alert.addTextField { [weak self] (textFeild) in
+            textFeild.delegate = self
+        }
         alert.textFields?.first?.text = shoppingList.name
         if costAccounting {
             alert.addTextField { (textFeild) in
@@ -406,8 +540,8 @@ extension ShoppingListTableViewController {
                 }
             }
         }
-        alert.addAction(saveAction)
         alert.addAction(cancelAction)
+        alert.addAction(saveAction)
         present(alert, animated: true)
     }
 
@@ -422,7 +556,7 @@ extension ShoppingListTableViewController {
                 doubleValue = Double(newDouble) ?? 0.0
             }
 
-            self.updateList(shoppingList.name, listCost: doubleValue , order: Int(shoppingList.order))
+            self.updateList(shoppingList.name, listCost: doubleValue  , order: Int(shoppingList.order))
             
             self.updatePurchases(shoppingList)
         }
@@ -437,11 +571,10 @@ extension ShoppingListTableViewController {
                 textFeild.text = "\(shoppingList.cost)"
             }
         }
-        alert.addAction(saveAction)
         alert.addAction(cancelAction)
+        alert.addAction(saveAction)
         present(alert, animated: true)
     }
-
 }
 
 // MARK: - Work with storage
@@ -455,7 +588,7 @@ extension ShoppingListTableViewController {
             else { return }
 
         let list = NSManagedObject(entity: entityDescription, insertInto: viewContext) as! List
-        list.name = listName
+        list.name = listName.capitalizingFirstLetter()
         let minList = shoppingList.min { a, b in a.order < b.order }
         list.order = (minList?.order ?? 0) - 1
 
@@ -469,6 +602,12 @@ extension ShoppingListTableViewController {
         } catch let error {
             print(error)
         }
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.settingFotterView()
+        }
+
     }
 
     private func delete(_ listName: List) {
@@ -481,9 +620,14 @@ extension ShoppingListTableViewController {
             print("error: \(error.localizedDescription)")
         }
         setupCost()
+        updateBadgeValue()
+
+        settingFotterView()
     }
 
-    private func updateList(_ listName: String?, listCost: Double, order: Int) {
+
+
+    private func updateList(_ listName: String?, listCost: Double?, order: Int) {
 
         viewContext.setValue(listName, forKey: "name")
 
@@ -491,7 +635,9 @@ extension ShoppingListTableViewController {
 
             if list.order == Int32(order) {
                 list.name = listName
-                list.cost = listCost
+                if let cost = listCost {
+                    list.cost = cost
+                }
 
                 self.tableView.reloadData()
             }
@@ -502,6 +648,7 @@ extension ShoppingListTableViewController {
             print("error: \(error.localizedDescription)")
         }
         setupCost()
+        updateBadgeValue()
     }
 
     private func updatePurchases(_ listName: List) {
@@ -530,6 +677,7 @@ extension ShoppingListTableViewController {
         }
         updateOrders()
         setupCost()
+        updateBadgeValue()
     }
 
     private func updateOrders() {
@@ -541,6 +689,7 @@ extension ShoppingListTableViewController {
         } catch let error as NSError {
             print("error: \(error.localizedDescription)")
         }
+        updateBadgeValue()
     }
 
     private func fetchData() {
@@ -554,6 +703,109 @@ extension ShoppingListTableViewController {
 
         } catch let error {
             print(error)
+        }
+        updateBadgeValue()
+    }
+}
+
+// MARK: - Work with UITextField
+
+extension ShoppingListTableViewController: UITextFieldDelegate {
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let maxLength = 30
+        let currentString: NSString = textField.text! as NSString
+        let newString: NSString =
+            currentString.replacingCharacters(in: range, with: string) as NSString
+        return newString.length <= maxLength
+    }
+}
+
+// MARK: - Work with String
+
+extension String {
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
+}
+
+extension ShoppingListTableViewController {
+
+    func updateBadgeValue() {
+
+        var count = 0
+
+        shoppingList.forEach { (list) in
+            if !list.isBuy {
+                count += 1
+            }
+        }
+
+        if shoppingList.isEmpty { count = 0 }
+        tabBarController?.tabBar.items?[0].badgeValue = "\(count)"
+    }
+}
+
+// MARK: - UITableViewDragDelegate, UITableViewDropDelegate
+
+extension ShoppingListTableViewController: UITableViewDragDelegate, UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+
+        let dragItem = self.dragItem(forDataAt: indexPath)
+        return [dragItem]
+    }
+
+    /// Helper method
+    private func dragItem(forDataAt indexPath: IndexPath) -> UIDragItem {
+
+        let imageName = self.shoppingList[indexPath.row].name
+        let data = shoppingList[indexPath.row]
+        let string = data.name
+        let itemProvider = NSItemProvider(object: string! as NSItemProviderWriting)
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = imageName
+        return dragItem
+    }
+
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+
+    }
+
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        updateOrders()
+    }
+}
+
+extension ShoppingListTableViewController {
+
+    @objc func addPosition() {
+
+        showAlert(title: NSLocalizedString("AddingPosition", comment: ""), message: NSLocalizedString("WhatToAdd", comment: ""))
+    }
+}
+
+
+extension ShoppingListTableViewController {
+
+    func sutupButton() {
+
+        let buttonOnFoot = defaults.bool(forKey: "addButton")
+
+        if buttonOnFoot {
+            addButton.image = nil
+            addButton.isEnabled = false
+            footView.isHidden = false
+            button.isHidden = false
+        } else {
+            let image = UIImage(systemName: "plus")
+            addButton.image = image
+            addButton.isEnabled = true
+            footView.isHidden = true
+            button.isHidden = true
         }
     }
 }

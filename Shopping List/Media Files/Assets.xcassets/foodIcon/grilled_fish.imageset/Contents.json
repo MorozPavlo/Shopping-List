@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "grilled_fish.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

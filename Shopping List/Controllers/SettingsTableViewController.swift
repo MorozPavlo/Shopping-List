@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import StoreKit
+
+protocol SetupButtonDelegate: class {
+    func sutupButton()
+}
 
 class SettingsTableViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
     
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var swicherCounts: UISwitch!
+    @IBOutlet weak var addButtonSwitch: UISwitch!
     @IBOutlet weak var сurrentСurrency: UIButton!
     @IBOutlet weak var currentView: UIView!
     @IBOutlet weak var currentViewCell: UITableViewCell!
@@ -20,8 +26,8 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
     
     private let appIconServise = AppIconServise()
     private let defaults = UserDefaults.standard
-    
-    private let currency = ["₴","₽","$","¥","£","€","€","₣","₤"]
+
+    private let currency = ["₴","₽","$","¥","£","€","₣","₤"]
     
     
     private var imageSetNames: [String] = ["shopping0@3x.png","shopping1@3x.png","shopping2@3x.png","shopping3@3x.png"]
@@ -29,6 +35,8 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
                                         NSLocalizedString("BlueBreeze", comment: ""),
                                         NSLocalizedString("Unusual", comment: ""),
                                         NSLocalizedString("Simplicity", comment: "")]
+
+    var delegate: SetupButtonDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +88,8 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
         
         return cell
     }
+
+    // MARK: Change Icon
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -113,6 +123,17 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
         }
         hideCurrencyCell()
     }
+
+    @IBAction func switchButtonAction(_ sender: UISwitch) {
+
+        if sender.isOn {
+            defaults.set(true, forKey: "addButton")
+        } else {
+            defaults.set(false, forKey: "addButton")
+        }
+        delegate?.sutupButton()
+    }
+
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let costAccounting = defaults.bool(forKey: "costAccounting")
@@ -162,18 +183,21 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
     
     // MARK: Alert
     
-    private func saveCurrency(_ currency:String) {
-        defaults.set(currency, forKey: "currency")
-        сurrentСurrency.setTitle(defaults.string(forKey: "currency"), for: .normal)
-    }
-    
     private func successfully() {
         let alert = UIAlertController(title: NSLocalizedString("Successfully", comment: ""), message: NSLocalizedString("CurrencyChooseSuccessfully", comment: ""), preferredStyle: .alert)
         let alertAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default)
         alert.addAction(alertAction)
         present(alert, animated: true)
     }
-    
+
+    // MARK: Settings for Currency
+
+    private func saveCurrency(_ currency:String) {
+        defaults.set(currency, forKey: "currency")
+        сurrentСurrency.setTitle(defaults.string(forKey: "currency"), for: .normal)
+    }
+
+
     private func hideCurrencyCell() {
         let costAccounting = defaults.bool(forKey: "costAccounting")
         
@@ -197,9 +221,24 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
         collectionView.delegate = self
         collectionView.dataSource = self
         swicherCounts.isOn = defaults.bool(forKey: "costAccounting")
+        addButtonSwitch.isOn = defaults.bool(forKey: "addButton")
         let currency = defaults.string(forKey: "currency") ?? NSLocalizedString("CurrentCurrency", comment: "")
         сurrentСurrency.setTitle(currency, for: .normal)
         hideCurrencyCell()
     }
-    
+
+    @IBAction func rateAction(_ sender: Any) {
+
+       rateApp(id: "1512179736")
+    }
+
+            func rateApp(id : String) {
+                guard let url = URL(string : "itms-apps://itunes.apple.com/app/id\(id)?mt=8&action=write-review") else { return }
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+
 }

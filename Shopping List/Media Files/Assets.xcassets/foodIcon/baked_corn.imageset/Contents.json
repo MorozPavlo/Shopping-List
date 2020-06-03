@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "baked_corn.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
