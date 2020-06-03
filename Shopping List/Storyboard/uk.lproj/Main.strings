@@ -3,7 +3,7 @@
 "08b-6n-hsy.title" = "Налаштування";
 
 /* Class = "UITableViewSection"; footerTitle = "Вы сможете указать стоимость продукта, когда положите его в корзину."; ObjectID = "4O8-30-8Ze"; */
-"4O8-30-8Ze.footerTitle" = "Ви зможете вказати вартість продукту, коли покладете його в кошик.";
+"4O8-30-8Ze.footerTitle" = "Ви зможете вказати вартість продукту, коли додасте його в кошик.";
 
 /* Class = "UITableViewSection"; headerTitle = "СПИСОК ПОКУПОК"; ObjectID = "4O8-30-8Ze"; */
 "4O8-30-8Ze.headerTitle" = "СПИСОК ПОКУПОК";
@@ -13,6 +13,12 @@
 
 /* Class = "UITableViewSection"; headerTitle = "ИКОНКА ПРИЛОЖЕНИЯ"; ObjectID = "5t6-Mc-YmG"; */
 "5t6-Mc-YmG.headerTitle" = "Іконка додатку";
+
+/* Class = "UITableViewSection"; footerTitle = "Мы будем очень признательны!"; ObjectID = "7do-YM-sCH"; */
+"7do-YM-sCH.footerTitle" = "Ми будемо дуже вдячні!";
+
+/* Class = "UITableViewSection"; headerTitle = "ОЦЕНКА ПРИЛОЖЕНИЯ"; ObjectID = "7do-YM-sCH"; */
+"7do-YM-sCH.headerTitle" = "ОЦІНКА ДОДАТКУ";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Cxa-S0-Kbc"; */
 "Cxa-S0-Kbc.title" = "Item";
@@ -35,11 +41,22 @@
 /* Class = "UILabel"; text = "Валюта"; ObjectID = "XtA-Y2-PF6"; */
 "XtA-Y2-PF6.text" = "Валюта";
 
+/* Class = "UITableViewSection"; headerTitle = "КНОПКА ДОБАВЛЕНИЯ ПОЗИЦИИ"; ObjectID = "b4z-Rb-h2f"; */
+"b4z-Rb-h2f.headerTitle" = "КНОПКА ДОДАВАННЯ ПОЗИЦІЇ";
+
 /* Class = "UILabel"; text = "Апельсин"; ObjectID = "bnu-p7-XYV"; */
 "bnu-p7-XYV.text" = "Апельсин";
 
 /* Class = "UILabel"; text = "Вести учёт стоимости"; ObjectID = "rCS-Cg-tSx"; */
 "rCS-Cg-tSx.text" = "Вести облік вартості";
 
+/* Class = "UIButton"; normalTitle = "Оценить нас в App Store "; ObjectID = "tVw-Ii-UPL"; */
+"tVw-Ii-UPL.normalTitle" = "Оцінити нас в App Store ";
+
+/* Class = "UILabel"; text = "Кнопка добавления внизу"; ObjectID = "w7U-Fr-Mws"; */
+"w7U-Fr-Mws.text" = "Кнопка додавання знизу";
+
 /* Class = "UILabel"; text = "Основная"; ObjectID = "yEi-bF-i4a"; */
 "yEi-bF-i4a.text" = "Основная";
+
+

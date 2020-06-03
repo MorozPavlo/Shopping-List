@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "chewing_gum.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

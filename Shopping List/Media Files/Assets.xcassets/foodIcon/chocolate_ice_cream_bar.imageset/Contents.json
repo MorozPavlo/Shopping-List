@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "chocolate_ice_cream_bar.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
