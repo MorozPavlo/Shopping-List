@@ -56,7 +56,6 @@ class ShoppingListTableViewController: UITableViewController {
 
         setupCost()
         setupViewWillAppear()
-        scrollBottom()
     }
 
     override func viewDidLayoutSubviews() {
@@ -99,17 +98,6 @@ class ShoppingListTableViewController: UITableViewController {
     @IBAction func addNewProduct(_ sender: Any) {
 
         showAlert(title: NSLocalizedString("AddingPosition", comment: ""), message: NSLocalizedString("WhatToAdd", comment: ""))
-    }
-
-    func scrollBottom() {
-
-        //        self.tableView.reloadData()
-        //        DispatchQueue.main.async {
-        //            let bottomOffset = CGPoint(x: 0, y: (self.tableView.contentSize.height - self.tableView.bounds.size.height) + self.footView.frame.height)
-        //
-        //            self.tableView.setContentOffset(bottomOffset, animated: true)
-        //            self.footView.alpha = 0
-        //            }
     }
 
     // MARK: - Buy Actions
@@ -607,7 +595,6 @@ extension ShoppingListTableViewController {
             self.tableView.reloadData()
             self.settingFotterView()
         }
-
     }
 
     private func delete(_ listName: List) {

@@ -21,7 +21,6 @@ class ShoppingListTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
     }
 
     func set(list: List) {
@@ -29,7 +28,6 @@ class ShoppingListTableViewCell: UITableViewCell {
         costAccounting = defaults.bool(forKey: "costAccounting")
         costLabel.isHidden = !costAccounting
 
-        //self.nameLabel.text = " \(list.name!) (id \(list.order))"
         self.nameLabel.text = list.name
         let currency = defaults.string(forKey: "currency") ?? NSLocalizedString("CurrentCurrency", comment: "")
         self.costLabel.text = "\(list.cost) \(currency)"
@@ -43,6 +41,5 @@ class ShoppingListTableViewCell: UITableViewCell {
         let emodji = Emodji()
         let emodjiImage = emodji.setupName(list.name ?? "default")
         self.imageProduct.image = UIImage(named: "\(emodjiImage.lowercased())")
-        
     }
 }

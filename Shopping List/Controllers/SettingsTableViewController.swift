@@ -9,7 +9,7 @@
 import UIKit
 import StoreKit
 
-protocol SetupButtonDelegate: class {
+protocol SetupButtonDelegate: AnyObject {
     func sutupButton()
 }
 
@@ -26,7 +26,7 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
     
     private let appIconServise = AppIconServise()
     private let defaults = UserDefaults.standard
-
+    
     private let currency = ["₴","₽","$","¥","£","€","₣","₤"]
     
     
@@ -35,7 +35,7 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
                                         NSLocalizedString("BlueBreeze", comment: ""),
                                         NSLocalizedString("Unusual", comment: ""),
                                         NSLocalizedString("Simplicity", comment: "")]
-
+    
     var delegate: SetupButtonDelegate?
     
     override func viewDidLoad() {
@@ -88,7 +88,7 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
         
         return cell
     }
-
+    
     // MARK: Change Icon
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -123,9 +123,9 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
         }
         hideCurrencyCell()
     }
-
+    
     @IBAction func switchButtonAction(_ sender: UISwitch) {
-
+        
         if sender.isOn {
             defaults.set(true, forKey: "addButton")
         } else {
@@ -133,7 +133,7 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
         }
         delegate?.sutupButton()
     }
-
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let costAccounting = defaults.bool(forKey: "costAccounting")
@@ -189,15 +189,15 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
         alert.addAction(alertAction)
         present(alert, animated: true)
     }
-
+    
     // MARK: Settings for Currency
-
+    
     private func saveCurrency(_ currency:String) {
         defaults.set(currency, forKey: "currency")
         сurrentСurrency.setTitle(defaults.string(forKey: "currency"), for: .normal)
     }
-
-
+    
+    
     private func hideCurrencyCell() {
         let costAccounting = defaults.bool(forKey: "costAccounting")
         
@@ -226,19 +226,18 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
         сurrentСurrency.setTitle(currency, for: .normal)
         hideCurrencyCell()
     }
-
+    
     @IBAction func rateAction(_ sender: Any) {
-
-       rateApp(id: "1512179736")
+        
+        rateApp(id: "1512179736")
     }
-
-            func rateApp(id : String) {
-                guard let url = URL(string : "itms-apps://itunes.apple.com/app/id\(id)?mt=8&action=write-review") else { return }
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
-            }
-
+    
+    func rateApp(id : String) {
+        guard let url = URL(string : "itms-apps://itunes.apple.com/app/id\(id)?mt=8&action=write-review") else { return }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
 }

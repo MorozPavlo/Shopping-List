@@ -7,7 +7,9 @@
 */
 
 //Таб бар
+"Categories" = "Categories";
 "ShoppingList" = "Shopping List";
+"Categories" = "Categories";
 "Settings" = "Settings";
 //Иконки
 "Main" = "Main";
@@ -56,3 +58,7 @@
 "ListDontSaveToBufer" = "List is empty";
 //Новая позиция
 "NewPosition" = "New position";
+
+//Категории
+"EnterName" = "Enter the name of the category";
+"AddingCategory" = "Adding Category";

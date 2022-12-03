@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		847D703F2937B0D60033DC20 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D703E2937B0D60033DC20 /* CategoryViewController.swift */; };
+		847D70412937B56B0033DC20 /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D70402937B56B0033DC20 /* CategoryItem.swift */; };
+		847D70462937B6880033DC20 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D70452937B6880033DC20 /* CategoryCell.swift */; };
 		D73824B9244B223D00FD77F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73824B8244B223D00FD77F4 /* AppDelegate.swift */; };
 		D73824BB244B223D00FD77F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73824BA244B223D00FD77F4 /* SceneDelegate.swift */; };
 		D73824C0244B223D00FD77F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D73824BE244B223D00FD77F4 /* Main.storyboard */; };
@@ -33,6 +36,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		847D703E2937B0D60033DC20 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		847D70402937B56B0033DC20 /* CategoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
+		847D70452937B6880033DC20 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		D73824B5244B223D00FD77F4 /* Shopping List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shopping List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D73824B8244B223D00FD77F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D73824BA244B223D00FD77F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				D73824D6244B24E000FD77F4 /* Cell */,
+				847D703E2937B0D60033DC20 /* CategoryViewController.swift */,
 				D73824D4244B248400FD77F4 /* ShoppingListTableViewController.swift */,
 				D73824F0244F9F3F00FD77F4 /* SettingsTableViewController.swift */,
 			);
@@ -162,6 +169,7 @@
 			children = (
 				D73824D7244B253200FD77F4 /* ShoppingListTableViewCell.swift */,
 				D73824F2244FA05100FD77F4 /* IconsCollectionViewCell.swift */,
+				847D70452937B6880033DC20 /* CategoryCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -170,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				D73824DF244CDB4E00FD77F4 /* Emodji.swift */,
+				847D70402937B56B0033DC20 /* CategoryItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -226,7 +235,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1330;
 				ORGANIZATIONNAME = "Pavel Moroz";
 				TargetAttributes = {
 					D73824B4244B223D00FD77F4 = {
@@ -283,6 +292,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847D70462937B6880033DC20 /* CategoryCell.swift in Sources */,
+				847D703F2937B0D60033DC20 /* CategoryViewController.swift in Sources */,
 				D73824D8244B253200FD77F4 /* ShoppingListTableViewCell.swift in Sources */,
 				D738250924507DDD00FD77F4 /* AppIconServise.swift in Sources */,
 				D73824C3244B223D00FD77F4 /* Shopping_List.xcdatamodeld in Sources */,
@@ -292,6 +303,7 @@
 				D73824BB244B223D00FD77F4 /* SceneDelegate.swift in Sources */,
 				D73824D5244B248400FD77F4 /* ShoppingListTableViewController.swift in Sources */,
 				D73824F1244F9F3F00FD77F4 /* SettingsTableViewController.swift in Sources */,
+				847D70412937B56B0033DC20 /* CategoryItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +381,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -393,7 +406,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -430,6 +443,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -448,7 +462,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
