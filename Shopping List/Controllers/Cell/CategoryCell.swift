@@ -31,12 +31,14 @@ class CategoryCell: UICollectionViewCell, SelfConfiguringCell {
         self.layer.shadowRadius = 3
         self.layer.shadowOpacity = 0.5
         self.layer.shadowOffset = CGSize(width: 0, height: 4)
+        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.containerView.layer.cornerRadius = 4
         self.containerView.clipsToBounds = true
+        
     }
 
     func configure<U>(with value: U) where U : Hashable {
@@ -44,13 +46,15 @@ class CategoryCell: UICollectionViewCell, SelfConfiguringCell {
         categoryName.text = category.nameCategory
         categoryName.textAlignment = .center
         
-        let orderCategory = category.id - 2
+      //  let orderCategory = category.id - 2
         
-        if orderCategory  < 4 {
-            categoryImageView.image = UIImage(named: "shopping\(orderCategory)@3x")
-        } else {
-            categoryImageView.image = UIImage(named: "shopping3@3x")
-        }
+//        if orderCategory  < 4 {
+//            categoryImageView.image = UIImage(named: "shopping\(orderCategory)@3x")
+//        } else {
+//            categoryImageView.image = UIImage(named: "shopping3@3x")
+//        }
+        
+        categoryImageView.image = UIImage(named: "welcomeIcon2")
         
     }
 
@@ -61,9 +65,13 @@ class CategoryCell: UICollectionViewCell, SelfConfiguringCell {
 
         categoryImageView.backgroundColor = .clear
         
+        
         addSubview(containerView)
         containerView.addSubview(categoryImageView)
         containerView.addSubview(categoryName)
+        
+        categoryName.backgroundColor = UIColor(white: 0.95, alpha: 0.3)
+        
 
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: self.topAnchor),
