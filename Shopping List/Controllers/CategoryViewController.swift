@@ -56,6 +56,7 @@ class CategoryViewController: UIViewController {
                                                      selector: #selector(didBecomeActive),
                                                      name: UIApplication.didBecomeActiveNotification,
                                                      object: nil)
+        
     }
     
     
@@ -73,6 +74,7 @@ class CategoryViewController: UIViewController {
         switch gesture.state {
         case .began:
             
+            Vibration.success.vibrate()
             guard let targetIndexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else  { return }
             
             let index = targetIndexPath.row
@@ -437,5 +439,4 @@ extension CategoryViewController {
         alert.addAction(saveAction)
         present(alert, animated: true)
     }
-    
 }

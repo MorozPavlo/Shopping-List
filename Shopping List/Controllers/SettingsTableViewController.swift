@@ -30,8 +30,9 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
     private let currency = ["₴","₽","$","¥","£","€","₣","₤"]
     
     
-    private var imageSetNames: [String] = ["shopping0@3x.png","shopping1@3x.png","shopping2@3x.png","shopping3@3x.png"]
-    private var imageNames: [String] = [NSLocalizedString("Main", comment: ""),
+    private var imageSetNames: [String] = ["shopping4@3x.png", "shopping0@3x.png","shopping1@3x.png","shopping2@3x.png","shopping3@3x.png"]
+    private var imageNames: [String] = [NSLocalizedString("SlavaUkraine", comment: ""),
+                                        NSLocalizedString("Main", comment: ""),
                                         NSLocalizedString("BlueBreeze", comment: ""),
                                         NSLocalizedString("Unusual", comment: ""),
                                         NSLocalizedString("Simplicity", comment: "")]

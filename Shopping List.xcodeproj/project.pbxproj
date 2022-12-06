@@ -10,6 +10,8 @@
 		847D703F2937B0D60033DC20 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D703E2937B0D60033DC20 /* CategoryViewController.swift */; };
 		847D70412937B56B0033DC20 /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D70402937B56B0033DC20 /* CategoryItem.swift */; };
 		847D70462937B6880033DC20 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D70452937B6880033DC20 /* CategoryCell.swift */; };
+		847D7048293E954B0033DC20 /* shopping4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 847D7047293E954B0033DC20 /* shopping4@3x.png */; };
+		847D704B293E98760033DC20 /* Vibration Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847D704A293E98760033DC20 /* Vibration Type.swift */; };
 		D73824B9244B223D00FD77F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73824B8244B223D00FD77F4 /* AppDelegate.swift */; };
 		D73824BB244B223D00FD77F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73824BA244B223D00FD77F4 /* SceneDelegate.swift */; };
 		D73824C0244B223D00FD77F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D73824BE244B223D00FD77F4 /* Main.storyboard */; };
@@ -39,6 +41,8 @@
 		847D703E2937B0D60033DC20 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		847D70402937B56B0033DC20 /* CategoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
 		847D70452937B6880033DC20 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		847D7047293E954B0033DC20 /* shopping4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping4@3x.png"; sourceTree = "<group>"; };
+		847D704A293E98760033DC20 /* Vibration Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vibration Type.swift"; sourceTree = "<group>"; };
 		D73824B5244B223D00FD77F4 /* Shopping List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shopping List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D73824B8244B223D00FD77F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D73824BA244B223D00FD77F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		847D7049293E985B0033DC20 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				847D704A293E98760033DC20 /* Vibration Type.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		D73824AC244B223D00FD77F4 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +117,7 @@
 		D73824B7244B223D00FD77F4 /* Shopping List */ = {
 			isa = PBXGroup;
 			children = (
+				847D7049293E985B0033DC20 /* Extension */,
 				D73824E2244F92CA00FD77F4 /* ChangeAppIcon */,
 				D73824D0244B22B200FD77F4 /* Supportings Files */,
 				D73824D1244B22C000FD77F4 /* Controllers */,
@@ -196,6 +209,7 @@
 		D73824E3244F92E400FD77F4 /* AppIcons */ = {
 			isa = PBXGroup;
 			children = (
+				847D7047293E954B0033DC20 /* shopping4@3x.png */,
 				D7382504245059D200FD77F4 /* shopping3@2x.png */,
 				D7382505245059D300FD77F4 /* shopping3@3x.png */,
 				D73824FD2450431C00FD77F4 /* shopping0@2x.png */,
@@ -271,6 +285,7 @@
 				D73825022450431C00FD77F4 /* shopping1@3x.png in Resources */,
 				D7F8B0A42454653E00079B38 /* InfoPlist.strings in Resources */,
 				D738250B2451D3B000FD77F4 /* 5.1 - BG.png in Resources */,
+				847D7048293E954B0033DC20 /* shopping4@3x.png in Resources */,
 				D73824C8244B223E00FD77F4 /* LaunchScreen.storyboard in Resources */,
 				D73824C5244B223E00FD77F4 /* Assets.xcassets in Resources */,
 				D73824C0244B223D00FD77F4 /* Main.storyboard in Resources */,
@@ -300,6 +315,7 @@
 				D73824F3244FA05100FD77F4 /* IconsCollectionViewCell.swift in Sources */,
 				D73824B9244B223D00FD77F4 /* AppDelegate.swift in Sources */,
 				D73824E0244CDB4E00FD77F4 /* Emodji.swift in Sources */,
+				847D704B293E98760033DC20 /* Vibration Type.swift in Sources */,
 				D73824BB244B223D00FD77F4 /* SceneDelegate.swift in Sources */,
 				D73824D5244B248400FD77F4 /* ShoppingListTableViewController.swift in Sources */,
 				D73824F1244F9F3F00FD77F4 /* SettingsTableViewController.swift in Sources */,

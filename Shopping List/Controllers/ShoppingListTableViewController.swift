@@ -108,7 +108,7 @@ class ShoppingListTableViewController: UITableViewController {
     // MARK: - Actions
     
     @IBAction func addNewProduct(_ sender: Any) {
-        
+        Vibration.rigid.vibrate()
         showAlert(title: NSLocalizedString("AddingPosition", comment: ""), message: NSLocalizedString("WhatToAdd", comment: ""))
     }
     
@@ -488,11 +488,12 @@ extension ShoppingListTableViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let saveAction = UIAlertAction(title: NSLocalizedString("Add", comment: ""), style: .default) { _ in
             guard let task = alert.textFields?.first?.text, !task.isEmpty else {
-                print("The text field is empty")
+                Vibration.error.vibrate()
                 return
             }
             
             self.save(task)
+            Vibration.medium.vibrate()
         }
         
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
@@ -781,6 +782,7 @@ extension ShoppingListTableViewController: UITableViewDragDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        Vibration.selection.vibrate()
         updateOrders()
     }
 }
@@ -788,7 +790,6 @@ extension ShoppingListTableViewController: UITableViewDragDelegate, UITableViewD
 extension ShoppingListTableViewController {
     
     @objc func addPosition() {
-        
         showAlert(title: NSLocalizedString("AddingPosition", comment: ""), message: NSLocalizedString("WhatToAdd", comment: ""))
     }
 }
