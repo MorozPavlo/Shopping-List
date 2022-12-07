@@ -125,7 +125,13 @@ class ShoppingListTableViewController: UITableViewController {
             if self.costAccounting && self.shoppingList[indexPath.row].cost == 0.0 {
                 self.showAddPositionAleft(title: NSLocalizedString("CostOfGoods", comment: ""), message: NSLocalizedString("EnterСost", comment: ""), shoppingList: self.shoppingList[indexPath.row])
             } else {
-                self.updatePurchases(self.shoppingList[indexPath.row])
+                //self.updatePurchases(self.shoppingList[indexPath.row])
+                let list = self.shoppingList[indexPath.row]
+//                let fromIndexPath = IndexPath(row: indexPath.row, section: 0)
+                
+                self.updatePurchases2(list, indexPath: indexPath)
+                //self.updatePurchases(self.shoppingList[indexPath.row])
+                
             }
             completion(true)
         }
@@ -147,6 +153,7 @@ class ShoppingListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
         let oldList = shoppingList.remove(at: sourceIndexPath.row)
         shoppingList.insert(oldList, at: destinationIndexPath.row)
         
@@ -294,7 +301,9 @@ class ShoppingListTableViewController: UITableViewController {
 extension ShoppingListTableViewController {
     
     func setupUI() {
-        self.title = NSLocalizedString("ShoppingList", comment: "")
+        //self.title = NSLocalizedString("ShoppingList", comment: "")
+        
+        self.title = selectedCategory?.name
         
         self.costAccounting = defaults.bool(forKey: "costAccounting")
         
@@ -653,15 +662,52 @@ extension ShoppingListTableViewController {
         updateBadgeValue()
     }
     
-    private func updatePurchases(_ listName: List) {
+    private func updatePurchases2(_ listName: List, indexPath: IndexPath) {
         
+        let lastIndexPath = IndexPath(row: self.shoppingList.count-1, section: indexPath.section)
+        let firstIndexPath = IndexPath(row: 0, section: indexPath.section)
+        
+        if listName.isBuy == false {
+            listName.isBuy = true
+            listName.order = Int32(shoppingList.count + 1)
+            fetchData()
+            UIView.animate(withDuration: 1, animations: {
+                self.tableView.moveRow(at: indexPath, to: lastIndexPath)
+                  }) { (true) in
+                     
+                  }
+            
+        } else {
+            listName.isBuy = false
+            let minList = shoppingList.min { a, b in a.order < b.order }
+            listName.order = (minList?.order ?? 0) - 1
+            fetchData()
+            UIView.animate(withDuration: 1, animations: {
+                self.tableView.moveRow(at: indexPath, to: firstIndexPath)
+                  }) { (true) in
+                  
+                  }
+        }
+
+        //tableView.reloadData()
+        
+        do {
+            try viewContext.save()
+        } catch let error as NSError {
+            print("error: \(error.localizedDescription)")
+        }
+        updateOrders()
+        setupCost()
+        updateBadgeValue()
+    }
+    
+    private func updatePurchases(_ listName: List) {
         
         if listName.isBuy == false {
             listName.isBuy = true
             listName.order = Int32(shoppingList.count + 1)
             fetchData()
             tableView.reloadData()
-            
             
         } else {
             listName.isBuy = false
@@ -764,6 +810,11 @@ extension ShoppingListTableViewController: UITableViewDragDelegate, UITableViewD
         let dragItem = self.dragItem(forDataAt: indexPath)
         return [dragItem]
     }
+        
+    override func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        tableView.reloadData()
+    }
+    
     
     /// Helper method
     private func dragItem(forDataAt indexPath: IndexPath) -> UIDragItem {

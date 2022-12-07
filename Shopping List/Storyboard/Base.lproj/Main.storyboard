@@ -201,6 +201,7 @@
                     <connections>
                         <outlet property="addCategoryButton" destination="WTs-5O-IaS" id="kx6-QN-sYn"/>
                         <segue destination="cJr-Sa-JSb" kind="show" identifier="goToItems" id="PUP-Db-Pr6"/>
+                        <segue destination="cJr-Sa-JSb" kind="show" identifier="showLastList" id="3lf-xm-LG2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qDB-mY-RwE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -444,6 +445,9 @@
             <point key="canvasLocation" x="2668" y="128"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="3lf-xm-LG2"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="doc.text.fill" catalog="system" width="115" height="128"/>
         <image name="gear" catalog="system" width="128" height="122"/>

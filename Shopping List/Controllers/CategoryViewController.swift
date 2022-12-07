@@ -38,6 +38,8 @@ class CategoryViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<SectionCategory, CategoryItem>!
     
+    private let myDefaults = UserDefaults.standard
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -51,7 +53,7 @@ class CategoryViewController: UIViewController {
         createDataSourse()
         reloadData(with: nil)
         
-        
+        showLastList()
         NotificationCenter.default.addObserver(self,
                                                      selector: #selector(didBecomeActive),
                                                      name: UIApplication.didBecomeActiveNotification,
@@ -102,6 +104,13 @@ class CategoryViewController: UIViewController {
         
     
     // MARK: - Helper
+    
+    private func showLastList() {
+        
+        if categories.count > 0 {
+            self.performSegue(withIdentifier: "showLastList", sender: self)
+        }
+    }
     
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
@@ -303,6 +312,13 @@ extension CategoryViewController {
         
         viewContext.delete(categoryName)
         
+        let myLastListId = UserDefaults.standard.integer(forKey: "lastList")
+        
+        if myLastListId == categoryName.order - 1  {
+            myDefaults.removeObject(forKey: "lastList")
+        }
+        
+        
         do {
             try viewContext.save()
         } catch let error as NSError {
@@ -352,15 +368,23 @@ extension CategoryViewController: UITextFieldDelegate {
 extension CategoryViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            myDefaults.set(indexPath.row, forKey: "lastList")
                 performSegue(withIdentifier: "goToItems", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
         let destinationVC = segue.destination as! ShoppingListTableViewController
         
-        if let indexPath = collectionView.indexPathsForSelectedItems?.first?.row {
+        if segue.identifier ==  "goToItems" {
             
-            destinationVC.selectedCategory = categories[indexPath]
+            if let indexPath = collectionView.indexPathsForSelectedItems?.first?.row {
+                destinationVC.selectedCategory = categories[indexPath]
+            }
+            
+        } else if segue.identifier == "showLastList" {
+            let lastListID = UserDefaults.standard.integer(forKey: "lastList")
+            destinationVC.selectedCategory = categories[lastListID]
         }
     }
     
