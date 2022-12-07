@@ -325,7 +325,6 @@ extension CategoryViewController {
                 print("The text field is empty")
                 return
             }
-            
             self.save(task)
         }
         
@@ -362,6 +361,20 @@ extension CategoryViewController: UICollectionViewDelegate {
         if let indexPath = collectionView.indexPathsForSelectedItems?.first?.row {
             
             destinationVC.selectedCategory = categories[indexPath]
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.5) {
+            cell?.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath)
+        UIView.animate(withDuration: 0.5) {
+            cell?.transform = .identity
         }
     }
 }
@@ -440,3 +453,4 @@ extension CategoryViewController {
         present(alert, animated: true)
     }
 }
+

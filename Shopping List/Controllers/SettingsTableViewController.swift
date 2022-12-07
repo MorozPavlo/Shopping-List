@@ -73,7 +73,7 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 4
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -95,13 +95,16 @@ class SettingsTableViewController: UITableViewController, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         switch indexPath.row {
+            
         case 0:
             appIconServise.changeAppIcon(to: .primaryAppIcon)
         case 1:
-            appIconServise.changeAppIcon(to: .shopping1)
+            appIconServise.changeAppIcon(to: .shopping0)
         case 2:
-            appIconServise.changeAppIcon(to: .shopping2)
+            appIconServise.changeAppIcon(to: .shopping1)
         case 3:
+            appIconServise.changeAppIcon(to: .shopping2)
+        case 4:
             appIconServise.changeAppIcon(to: .shopping3)
         default:
             appIconServise.changeAppIcon(to: .primaryAppIcon)
