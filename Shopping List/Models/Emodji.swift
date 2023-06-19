@@ -28,7 +28,6 @@ struct Emodji {
             }
         }
         return emodji
-
     }
 }
 
@@ -39,7 +38,7 @@ func createDictEmodji() -> [[String:String]] {
     var dictUAf: [String:String] = [:]
     var dictEAf: [String:String] = [:]
 
-    for i in 0...massiveNameImage.count - 1{
+    for i in 0...massiveNameImage.count - 1 {
 
         dictRUf[dictRU[i]] = massiveNameImage[i]
         dictUAf[dictUA[i]] = massiveNameImage[i]
@@ -844,5 +843,4 @@ let dictUA = [ "печена кукурудза",
                "Огірок",
                "Манго",
                "Цибуля"
-
 ]

@@ -7,9 +7,12 @@
 */
 
 //Таб бар
+"Categories" = "Categories";
 "ShoppingList" = "Shopping List";
+"Categories" = "Categories";
 "Settings" = "Settings";
 //Иконки
+"SlavaUkraine" = "Slava Ukraini";
 "Main" = "Main";
 "BlueBreeze" = "Blue breeze";
 "Unusual" = "Unusual";
@@ -27,7 +30,7 @@
 //Редактировать
 "Edit" = "Edit";
 "EditPosition" = "Position editing";
-"WhatToChange" = "What to change?";
+"WhatToChange" = "Enter new name";
 //Всего чек
 "CurrencyTotal" = "Total check: %.2f";
 //Выбор валюты
@@ -56,3 +59,13 @@
 "ListDontSaveToBufer" = "List is empty";
 //Новая позиция
 "NewPosition" = "New position";
+
+//Категории
+"EnterName" = "Enter the name of the category";
+"AddingCategory" = "Adding Category";
+
+//Удаление категорий
+"DeletingCategory" = "Deleting Category";
+"AreYouSureDeleteCategory" = "Are you sure you want to delete this Category?";
+
+"EditCaterogy" = "Category editing";

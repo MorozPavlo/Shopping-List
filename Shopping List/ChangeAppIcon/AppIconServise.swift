@@ -15,6 +15,7 @@ class AppIconServise {
 
     enum AppIcon: String {
         case primaryAppIcon
+        case shopping0
         case shopping1
         case shopping2
         case shopping3
