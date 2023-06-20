@@ -9,11 +9,25 @@
 import UIKit
 import CoreData
 
+public let myDefaults = UserDefaults.standard
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        // Получение текущего значения sessionCount из UserDefaults
+        var sessionCount = myDefaults.integer(forKey: "sessionCount")
+        sessionCount += 1
+        myDefaults.set(sessionCount, forKey: "sessionCount")
+        
+        print("Session \(sessionCount)")
+        
+        //на 20й раз сбрасываем условия чтоб снова предложить оценить
+        if myDefaults.bool(forKey: "ratingLaterTimer") == true && myDefaults.integer(forKey: "sessionCount") == 30 {
+            myDefaults.set(0, forKey: "sessionCount")
+            myDefaults.set(false, forKey: "ratingLaterTimer")
+        }
         
         return true
     }
