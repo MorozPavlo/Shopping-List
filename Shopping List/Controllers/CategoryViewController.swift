@@ -38,12 +38,19 @@ class CategoryViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<SectionCategory, CategoryItem>!
     
-    private let myDefaults = UserDefaults.standard
+    let appID = "1512179736" // Идентификатор вашего приложения в App Store
+    var timer: Timer?
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if  myDefaults.bool(forKey: "ratingLaterTimer") == false  {
+            scheduleRatingAlert(timeInterval: 3) // почти сразу
+        } else if  myDefaults.bool(forKey: "ratingLaterTimer") == true && myDefaults.integer(forKey: "sessionCount") % 5 == 0 {
+            scheduleRatingAlert(timeInterval: 3) // Почти сразу
+        }
         
         setupSearchBar()
 
@@ -478,3 +485,46 @@ extension CategoryViewController {
     }
 }
 
+
+// MARK: - Rating
+extension CategoryViewController {
+    
+    func scheduleRatingAlert(timeInterval: TimeInterval) {
+        
+        
+        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(promptForRating), userInfo: nil, repeats: false)
+        
+    }
+    
+    
+    
+    @objc func promptForRating() {
+        let alertController = UIAlertController(title: NSLocalizedString("EvaluateApp", comment: ""), message: NSLocalizedString("IfYouLike", comment: ""), preferredStyle: .alert)
+        
+        let rateAction = UIAlertAction(title: NSLocalizedString("RateIt", comment: ""), style: .default) { [weak self] _  in
+            guard let self = self else { return }
+            self.rateApp(id: self.appID)
+        }
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("NotNow", comment: ""), style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            myDefaults.set(true, forKey: "ratingLaterTimer")
+            print("myDefaults \(myDefaults.bool(forKey: "ratingLaterTimer"))")
+        }
+
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(rateAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+
+    func rateApp(id: String) {
+        guard let url = URL(string: "itms-apps://itunes.apple.com/app/id\(id)?mt=8&action=write-review") else { return }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+}

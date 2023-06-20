@@ -69,3 +69,13 @@
 "AreYouSureDeleteCategory" = "Are you sure you want to delete this Category?";
 
 "EditCaterogy" = "Category editing";
+
+//Оценить приложение
+"EvaluateApp" = "Evaluate the application";
+//Если вам нравится наше приложение, пожалуйста, оставьте оценку в App Store
+"IfYouLike" = "If you like our application, please leave a review on the App Store";
+//Оценить
+"RateIt" = "Rate";
+//Не сейчас
+"NotNow" = "Not now";
+
