@@ -167,7 +167,9 @@ class ShoppingListTableViewController: UITableViewController {
             self.delete(self.shoppingList[indexPath.row])
             self.shoppingList.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+            Vibration.medium.vibrate()
             self.updateBadgeValue()
+            
             complete(true)
         }
         
