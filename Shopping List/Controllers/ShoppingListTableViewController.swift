@@ -203,14 +203,14 @@ class ShoppingListTableViewController: UITableViewController {
         let alert = UIAlertController(title: NSLocalizedString("DeletingItems", comment: ""), message: NSLocalizedString("AreYouSure", comment: ""), preferredStyle: .alert)
         let saveAction = UIAlertAction(title: NSLocalizedString("Del", comment: ""), style: .default) { _ in
             for (_,list) in self.shoppingList.enumerated() {
-                if list.isBuy {
-                    if let index = self.shoppingList.firstIndex(of: list) {
-                        self.delete(self.shoppingList[index])
-                        self.shoppingList.remove(at: index)
-                        self.updateBadgeValue()
-                    }
-                    self.tableView.reloadData()
-                }
+//                if list.isBuy {
+//                    if let index = self.shoppingList.firstIndex(of: list) {
+//                        self.delete(self.shoppingList[index])
+//                        self.shoppingList.remove(at: index)
+//                        self.updateBadgeValue()
+//                    }
+//                    self.tableView.reloadData()
+//                }
             }
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
@@ -356,7 +356,7 @@ extension ShoppingListTableViewController {
         var total: Double = 0.0
         for cost in shoppingList {
             if cost.isBuy == true {
-                total += cost.cost
+               // total += cost.cost
             }
         }
         
@@ -374,20 +374,20 @@ extension ShoppingListTableViewController {
         case true :
             var isPurchasedItemsInList = false
             for list in shoppingList {
-                if list.isBuy {
-                    isPurchasedItemsInList = true
-                    break
-                }
+//                if list.isBuy {
+//                    isPurchasedItemsInList = true
+//                    break
+//                }
             }
             return isPurchasedItemsInList
             
         case false :
             var isPurchasedItemsInList = true
             for list in shoppingList {
-                if !list.isBuy {
-                    isPurchasedItemsInList = false
-                    break
-                }
+//                if !list.isBuy {
+//                    isPurchasedItemsInList = false
+//                    break
+//                }
             }
             return isPurchasedItemsInList
         }
@@ -535,7 +535,7 @@ extension ShoppingListTableViewController {
                 }
             }
             
-            self.updateList(task, listCost: doubleValue , order: Int(shoppingList.order))
+           // self.updateList(task, listCost: doubleValue , order: Int(shoppingList.order))
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .destructive)
         alert.addTextField { [weak self] (textFeild) in
@@ -569,7 +569,7 @@ extension ShoppingListTableViewController {
                 doubleValue = Double(newDouble) ?? 0.0
             }
             
-            self.updateList(shoppingList.name, listCost: doubleValue  , order: Int(shoppingList.order))
+            //self.updateList(shoppingList.name, listCost: doubleValue  , order: Int(shoppingList.order))
             
             self.updatePurchases(shoppingList)
         }
@@ -603,8 +603,8 @@ extension ShoppingListTableViewController {
         let list = NSManagedObject(entity: entityDescription, insertInto: viewContext) as! List
         list.name = listName.capitalizingFirstLetter()
         list.parentCategory = selectedCategory
-        let minList = shoppingList.min { a, b in a.order < b.order }
-        list.order = (minList?.order ?? 0) - 1
+      //  let minList = shoppingList.min { a, b in a.order < b.order }
+       // list.order = (minList?.order ?? 0) - 1
         
         do {
             try viewContext.save()
@@ -625,7 +625,7 @@ extension ShoppingListTableViewController {
     
     private func delete(_ listName: List) {
         
-        viewContext.delete(listName)
+        //viewContext.delete(listName)
         
         do {
             try viewContext.save()
@@ -681,8 +681,8 @@ extension ShoppingListTableViewController {
             
         } else {
             listName.isBuy = false
-            let minList = shoppingList.min { a, b in a.order < b.order }
-            listName.order = (minList?.order ?? 0) - 1
+            //blet minList = shoppingList.min { a, b in a.order < b.order }
+            //listName.order = (minList?.order ?? 0) - 1
             fetchData()
             UIView.animate(withDuration: 1, animations: {
                 self.tableView.moveRow(at: indexPath, to: firstIndexPath)
@@ -714,8 +714,8 @@ extension ShoppingListTableViewController {
         } else {
             listName.isBuy = false
             
-            let minList = shoppingList.min { a, b in a.order < b.order }
-            listName.order = (minList?.order ?? 0) - 1
+            //let minList = shoppingList.min { a, b in a.order < b.order }
+            //listName.order = (minList?.order ?? 0) - 1
             fetchData()
             tableView.reloadData()
         }
@@ -744,21 +744,21 @@ extension ShoppingListTableViewController {
     
     private func fetchData() {
         
-        let fetchRequest: NSFetchRequest<List> = List.fetchRequest()
-        
-        let sort = NSSortDescriptor(key: "order", ascending: true)
-        let predicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-        
-        fetchRequest.predicate = predicate
-        
-        fetchRequest.sortDescriptors = [sort]
-        do {
-            shoppingList = try viewContext.fetch(fetchRequest)
-            
-        } catch let error {
-            print(error)
-        }
-        updateBadgeValue()
+//        //let fetchRequest: NSFetchRequest<List> = List.fetchRequest()
+//        
+//        let sort = NSSortDescriptor(key: "order", ascending: true)
+//        let predicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+//        
+//        fetchRequest.predicate = predicate
+//        
+//        fetchRequest.sortDescriptors = [sort]
+//        do {
+//            shoppingList = try viewContext.fetch(fetchRequest)
+//            
+//        } catch let error {
+//            print(error)
+//        }
+//        updateBadgeValue()
     }
 }
 
@@ -794,9 +794,9 @@ extension ShoppingListTableViewController {
         var count = 0
         
         shoppingList.forEach { (list) in
-            if !list.isBuy {
-                count += 1
-            }
+//            if !list.isBuy {
+//                count += 1
+//            }
         }
         
         if shoppingList.isEmpty { count = 0 }

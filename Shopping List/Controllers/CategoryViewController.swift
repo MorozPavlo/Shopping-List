@@ -4,7 +4,7 @@
 //
 //  Created by Admin on 30/11/2022.
 //  Copyright © 2022 Pavel Moroz. All rights reserved.
-//
+
 
 import UIKit
 import CoreData
@@ -54,7 +54,7 @@ class CategoryViewController: UIViewController {
         
         setupSearchBar()
 
-        fetchData()
+        //fetchData()
         setupCollectionView()
         setupUI()
         createDataSourse()
@@ -142,7 +142,7 @@ class CategoryViewController: UIViewController {
     
     private func reloadData(with searchText: String?) {
         
-        fetchData()
+        // fetchData()
         
         let filtered = categoryItems.filter { (category) -> Bool in
             category.contains(filter: searchText)
@@ -274,22 +274,22 @@ extension CategoryViewController {
 
 extension CategoryViewController {
     
-    private func fetchData() {
-        
-        let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
-        
-        let sort = NSSortDescriptor(key: "order", ascending: true)
-        fetchRequest.sortDescriptors = [sort]
-        do {
-            categories = try viewContext.fetch(fetchRequest)
-            
-            categoryItems = categories.map { CategoryItem(categoryStorage: $0) }
-            
-            
-        } catch let error {
-            print(error)
-        }
-    }
+//    private func fetchData() {
+//        
+//        let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
+//        
+//        let sort = NSSortDescriptor(key: "order", ascending: true)
+//        fetchRequest.sortDescriptors = [sort]
+//        do {
+//            categories = try viewContext.fetch(fetchRequest)
+//            
+//            categoryItems = categories.map { CategoryItem(categoryStorage: $0) }
+//            
+//            
+//        } catch let error {
+//            print(error)
+//        }
+//    }
     
     private func save(_ categoryName: String) {
         guard let entityDescription = NSEntityDescription.entity(
@@ -300,30 +300,30 @@ extension CategoryViewController {
         
         let categor = NSManagedObject(entity: entityDescription, insertInto: viewContext) as! Category
         categor.name = categoryName.capitalizingFirstLetter()
-        let minList = categories.max { a, b in a.order < b.order }
-        
-        categor.order = (minList?.order ?? 0) + 1
-        
-        do {
-            try viewContext.save()
-            categories.append(categor)
-        } catch let error {
-            print(error)
-        }
-        DispatchQueue.main.async {
-            self.reloadData(with: nil)
-        }
+//        let minList = categories.max { a, b in a.order < b.order }
+//        
+//        categor.order = (minList?.order ?? 0) + 1
+//        
+//        do {
+//            try viewContext.save()
+//            categories.append(categor)
+//        } catch let error {
+//            print(error)
+//        }
+//        DispatchQueue.main.async {
+//            self.reloadData(with: nil)
+//        }
     }
     
     private func delete(_ categoryName: Category) {
         
-        viewContext.delete(categoryName)
+        // viewContext.delete(categoryName)
         
         let myLastListId = UserDefaults.standard.integer(forKey: "lastList")
         
-        if myLastListId == categoryName.order - 1  {
-            myDefaults.removeObject(forKey: "lastList")
-        }
+//        if myLastListId == categoryName.order - 1  {
+//            myDefaults.removeObject(forKey: "lastList")
+//        }
         
         
         do {
@@ -422,7 +422,7 @@ extension CategoryViewController {
                 return
             }
                                     
-            self.updateCategory(task, order: Int(category.order))
+           // self.updateCategory(task, order: Int(category.order))
         }
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
         
@@ -454,7 +454,7 @@ extension CategoryViewController {
         for (_,list) in categories.enumerated() {
             
             if list.order == Int32(order) {
-                list.name = categoryName
+             //   list.name = categoryName
                 
                 DispatchQueue.main.async {
                     self.reloadData(with: nil)

@@ -36,7 +36,7 @@ extension CategoryItem {
     init(categoryStorage: Category) {
         self.nameCategory = categoryStorage.name ?? ""
         
-        self.id = Int(categoryStorage.order) + 1
+        self.id = Int(categoryStorage.order ?? 23) + 1
         self.categoryImage = ""
     }
 }

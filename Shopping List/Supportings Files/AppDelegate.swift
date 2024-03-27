@@ -8,12 +8,15 @@
 
 import UIKit
 import CoreData
+import SwiftUI
 
 public let myDefaults = UserDefaults.standard
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    var window: UIWindow?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // Получение текущего значения sessionCount из UserDefaults
@@ -29,12 +32,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             myDefaults.set(false, forKey: "ratingLaterTimer")
         }
         
+        // Створюємо SwiftUI екран
+        let contentView = MainView()
+        
+        // Створюємо UIWindow
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        if let window = self.window {
+            // Встановлюємо SwiftUI екран як rootViewController
+            window.rootViewController = UIHostingController(rootView: contentView)
+            window.makeKeyAndVisible()
+        }
+        
         return true
     }
-
+    
     // MARK: UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-
+        
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
     
@@ -49,13 +63,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-
-
-
+    
+    
+    
     func applicationWillTerminate(_ application: UIApplication) {
         saveContext()
     }
-
+    
     // MARK: - Core Data Saving support
     func saveContext () {
         let context = persistentContainer.viewContext
