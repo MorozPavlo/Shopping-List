@@ -33,7 +33,7 @@ class CategoryViewController: UIViewController {
     private var categoryItems: [CategoryItem] = []
     private var categories: [Category] = []
     private var styleDark: Bool = false
-    private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    //private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<SectionCategory, CategoryItem>!
@@ -292,14 +292,14 @@ extension CategoryViewController {
 //    }
     
     private func save(_ categoryName: String) {
-        guard let entityDescription = NSEntityDescription.entity(
-            forEntityName: "Category",
-            in: viewContext
-        )
-        else { return }
-        
-        let categor = NSManagedObject(entity: entityDescription, insertInto: viewContext) as! Category
-        categor.name = categoryName.capitalizingFirstLetter()
+//        guard let entityDescription = NSEntityDescription.entity(
+//            forEntityName: "Category",
+//            in: viewContext
+//        )
+//        else { return }
+//        
+//        let categor = NSManagedObject(entity: entityDescription, insertInto: viewContext) as! Category
+//        categor.name = categoryName.capitalizingFirstLetter()
 //        let minList = categories.max { a, b in a.order < b.order }
 //        
 //        categor.order = (minList?.order ?? 0) + 1
@@ -316,25 +316,25 @@ extension CategoryViewController {
     }
     
     private func delete(_ categoryName: Category) {
-        
-        // viewContext.delete(categoryName)
-        
-        let myLastListId = UserDefaults.standard.integer(forKey: "lastList")
-        
-//        if myLastListId == categoryName.order - 1  {
-//            myDefaults.removeObject(forKey: "lastList")
+//        
+//        // viewContext.delete(categoryName)
+//        
+//        let myLastListId = UserDefaults.standard.integer(forKey: "lastList")
+//        
+////        if myLastListId == categoryName.order - 1  {
+////            myDefaults.removeObject(forKey: "lastList")
+////        }
+//        
+//        
+//        do {
+//            try viewContext.save()
+//        } catch let error as NSError {
+//            print("error: \(error.localizedDescription)")
 //        }
-        
-        
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            print("error: \(error.localizedDescription)")
-        }
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            self.reloadData(with: nil)
-        }
+//        DispatchQueue.main.async {
+//            self.collectionView.reloadData()
+//            self.reloadData(with: nil)
+//        }
     }
 }
 
@@ -448,28 +448,28 @@ extension CategoryViewController {
     }
     
     private func updateCategory(_ categoryName: String?, order: Int) {
-        
-        viewContext.setValue(categoryName, forKey: "name")
-        
-        for (_,list) in categories.enumerated() {
-            
-            if list.order == Int32(order) {
-             //   list.name = categoryName
-                
-                DispatchQueue.main.async {
-                    self.reloadData(with: nil)
-                }
-            }
-        }
-        do {
-            try viewContext.save()
-        } catch let error as NSError {
-            print("error: \(error.localizedDescription)")
-        }
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            self.reloadData(with: nil)
-        }
+//        
+//        viewContext.setValue(categoryName, forKey: "name")
+//        
+//        for (_,list) in categories.enumerated() {
+//            
+//            if list.order == Int32(order) {
+//             //   list.name = categoryName
+//                
+//                DispatchQueue.main.async {
+//                    self.reloadData(with: nil)
+//                }
+//            }
+//        }
+//        do {
+//            try viewContext.save()
+//        } catch let error as NSError {
+//            print("error: \(error.localizedDescription)")
+//        }
+//        DispatchQueue.main.async {
+//            self.collectionView.reloadData()
+//            self.reloadData(with: nil)
+//        }
     }
 
     private func deleteListInBusketAleft(category: Category) {

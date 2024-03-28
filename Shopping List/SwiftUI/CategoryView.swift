@@ -9,53 +9,69 @@
 import SwiftUI
 import SwiftData
 
-
 struct CategoryView: View {
-    
-    @AppStorage("sessionCount") private var sessionCount: Int = 0
-    
-    var body: some View {
-        ContentView()
-    }
-}
-
-
-struct ContentView: View {
     @State private var searchText = ""
-    @State private var showAlert = false
+    @State private var showAddAlert = false
+    @State private var textFieldInput = ""
     
-    @Query private var categories: [Category] = []
-
+    @Query private var categories: [Category]
+    
+    @Environment(\.modelContext) var context
+    
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 ForEach(filteredCategories) { category in
-                    VStack(alignment: .leading) {
-                        Text(category.name)
-                            .font(.headline)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Image("default")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                            VStack {
+                                Text(category.name)
+                            }
+                        }
+                        Spacer()
                     }
+                    .padding()
                 }
             }
             .navigationTitle("Categories")
             .toolbar {
-                    ToolbarItem {
-                        Button(action: {
-                            showAlert = true // Показываем алерт при нажатии на кнопку "+"
-                        }) {
-                            Image(systemName: "plus")
-                                .font(.title)
-                                .foregroundColor(.black)
-                        }
+                ToolbarItem {
+                    Button(action: {
+                        showAddAlert = true
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.title)
+                            .foregroundColor(.black)
                     }
                 }
+            }
         }
         .searchable(text: $searchText)
-        .alert(isPresented: $showAlert) { // Отображаем алерт, когда showAlert равно true
-            Alert(title: Text("Title"), message: Text("Message"), primaryButton: .default(Text("Add")) {
-                // Действие при нажатии кнопки "Add"
-                // Добавьте вашу логику здесь
-            }, secondaryButton: .destructive(Text("Cancel")))
+        .alert(Text(LocalizedStrings.alertAddButtonTitle), isPresented: $showAddAlert) {
+            TextField("", text: $textFieldInput)
+            HStack {
+                Button(action: {
+                    textFieldInput = ""
+                }, label: {
+                    Text("Close")
+                        .foregroundColor(Color.red)
+                })
+                
+                .foregroundStyle(Color.red)
+                Button("Save",action: {
+                    let category = Category(name: textFieldInput)
+                    context.insert(category)
+                    textFieldInput = ""
+                })
+            }
+        } message: {
+            Text(LocalizedStrings.alertAddButtonMessage)
         }
+        
     }
     
     var filteredCategories: [Category] {
@@ -64,6 +80,15 @@ struct ContentView: View {
         } else {
             return categories.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
         }
+    }
+}
+
+extension CategoryView {
+    
+    struct LocalizedStrings {
+        
+        static let alertAddButtonTitle = NSLocalizedString("AddingCategory", comment: "")
+        static let alertAddButtonMessage = NSLocalizedString("EnterName", comment: "")
     }
 }
 

@@ -21,7 +21,7 @@ class ShoppingListTableViewController: UITableViewController {
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     
-    private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    //private let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var shoppingList: [List]  = []
     
     private var styleDark: Bool = false
@@ -594,33 +594,33 @@ extension ShoppingListTableViewController {
 extension ShoppingListTableViewController {
     
     private func save(_ listName: String) {
-        guard let entityDescription = NSEntityDescription.entity(
-            forEntityName: "List",
-            in: viewContext
-        )
-        else { return }
-        
-        let list = NSManagedObject(entity: entityDescription, insertInto: viewContext) as! List
-        list.name = listName.capitalizingFirstLetter()
-        list.parentCategory = selectedCategory
-      //  let minList = shoppingList.min { a, b in a.order < b.order }
-       // list.order = (minList?.order ?? 0) - 1
-        
-        do {
-            try viewContext.save()
-            shoppingList.append(list)
-            let cellIndex = IndexPath(row: self.shoppingList.count - 1, section: 0)
-            self.tableView.insertRows(at: [cellIndex], with: .automatic)
-            fetchData()
-            tableView.reloadData()
-        } catch let error {
-            print(error)
-        }
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.settingFotterView()
-        }
+//        guard let entityDescription = NSEntityDescription.entity(
+//            forEntityName: "List",
+//            in: viewContext
+//        )
+//        else { return }
+//        
+//      //  let list = NSManagedObject(entity: entityDescription, insertInto: viewContext) as! List
+//        list.name = listName.capitalizingFirstLetter()
+//        list.parentCategory = selectedCategory
+//      //  let minList = shoppingList.min { a, b in a.order < b.order }
+//       // list.order = (minList?.order ?? 0) - 1
+//        
+//        do {
+//           // try viewContext.save()
+//            shoppingList.append(list)
+//            let cellIndex = IndexPath(row: self.shoppingList.count - 1, section: 0)
+//            self.tableView.insertRows(at: [cellIndex], with: .automatic)
+//            fetchData()
+//            tableView.reloadData()
+//        } catch let error {
+//            print(error)
+//        }
+//        
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//            self.settingFotterView()
+//        }
     }
     
     private func delete(_ listName: List) {
@@ -628,7 +628,7 @@ extension ShoppingListTableViewController {
         //viewContext.delete(listName)
         
         do {
-            try viewContext.save()
+           // try viewContext.save()
         } catch let error as NSError {
             print("error: \(error.localizedDescription)")
         }
@@ -642,7 +642,7 @@ extension ShoppingListTableViewController {
     
     private func updateList(_ listName: String?, listCost: Double?, order: Int) {
         
-        viewContext.setValue(listName, forKey: "name")
+      //  viewContext.setValue(listName, forKey: "name")
         
         for (_,list) in shoppingList.enumerated() {
             
@@ -656,7 +656,7 @@ extension ShoppingListTableViewController {
             }
         }
         do {
-            try viewContext.save()
+            //try viewContext.save()
         } catch let error as NSError {
             print("error: \(error.localizedDescription)")
         }
@@ -694,7 +694,7 @@ extension ShoppingListTableViewController {
         //tableView.reloadData()
         
         do {
-            try viewContext.save()
+           // try viewContext.save()
         } catch let error as NSError {
             print("error: \(error.localizedDescription)")
         }
@@ -721,7 +721,7 @@ extension ShoppingListTableViewController {
         }
         
         do {
-            try viewContext.save()
+          //  try viewContext.save()
         } catch let error as NSError {
             print("error: \(error.localizedDescription)")
         }
@@ -735,7 +735,7 @@ extension ShoppingListTableViewController {
             list.order = Int32(index)
         }
         do {
-            try viewContext.save()
+           // try viewContext.save()
         } catch let error as NSError {
             print("error: \(error.localizedDescription)")
         }
